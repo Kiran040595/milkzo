@@ -89,12 +89,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
             {/* Main Hero Farm Image */}
             <div className="relative w-full max-w-lg lg:max-w-none rounded-3xl overflow-hidden shadow-2xl border border-white/80">
               <img
-                src="/images/hero-cows.jpg"
+                src="/images/hero-cows.png"
                 alt="Healthy cows and buffaloes grazing on lush green Indian dairy farm"
                 fetchPriority="high"
-                className="w-full h-[320px] sm:h-[400px] lg:h-[440px] object-cover object-center"
+                className="w-full h-[340px] sm:h-[420px] lg:h-[460px] object-cover object-[80%_center]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
+
+              {/* "Good Nutrition For A Brighter Tomorrow" Script Badge matching prototype */}
+              <div className="absolute top-5 right-5 sm:top-7 sm:right-7 select-none pointer-events-none">
+                <div className="text-right -rotate-6 transform">
+                  <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
+                    Good Nutrition
+                  </p>
+                  <p className="text-[#0276FD] font-extrabold text-xs sm:text-sm italic leading-tight drop-shadow-xs">
+                    For A
+                  </p>
+                  <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
+                    Brighter Tomorrow
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
