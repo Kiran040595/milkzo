@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #0A1E3F;
+  --color-brand-blue: #0276FD;
+  --color-brand-blue-hover: #0060d6;
+  --color-brand-sky: #EBF5FF;
+  --color-brand-subtle: #F0F7FF;
+  --color-brand-dark: #07152B;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+}
