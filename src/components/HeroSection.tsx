@@ -28,12 +28,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
   return (
     <section
       id="home"
-      className="relative overflow-hidden pt-8 pb-14 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 bg-gradient-to-b from-[#eaf4fe] via-[#f4f9ff] to-white"
+      className="relative overflow-hidden bg-[#edf5fe]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+      {/* Background Panoramic Cow & Pasture Image without any card borders */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/images/hero-cows.png"
+          alt="MilkZo Indian Dairy Farm - Gir Cow & Buffalo in green pasture"
+          fetchPriority="high"
+          className="w-full h-full object-cover object-right lg:object-[92%_center]"
+        />
+
+        {/* Seamless gradient overlay on left for optimal text contrast without covering the cows */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#edf5fe] via-[#edf5fe]/90 sm:via-[#edf5fe]/70 to-transparent lg:w-[52%] pointer-events-none" />
+
+        {/* Soft bottom edge transition into Products section */}
+        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/90 to-transparent pointer-events-none" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[440px] sm:min-h-[480px] lg:min-h-[520px]">
           {/* Left Hero Content */}
-          <div className="lg:col-span-6 z-10 space-y-6 sm:space-y-7">
+          <div className="lg:col-span-5 xl:col-span-5 space-y-6 sm:space-y-7">
             <div className="inline-block">
               <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#0276FD]">
                 PURE DAIRY
@@ -41,20 +57,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
             </div>
 
             <div className="space-y-2 sm:space-y-3">
-              <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-black text-[#0A1E3F] tracking-tight leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-black text-[#0A1E3F] tracking-tight leading-[1.08]">
                 Real Goodness.
               </h1>
-              <p className="text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#0A1E3F] tracking-tight leading-[1.2]">
+              <p className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-[#0A1E3F] tracking-tight leading-[1.2]">
                 Direct from our Farmers <br className="hidden sm:inline" />
                 to Your Family.
               </p>
             </div>
 
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl">
+            <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed max-w-md">
               At MilkZo, we procure fresh, untoned milk directly from trusted
               Indian farmers, maintain uncompromising quality, pack it with care
               and deliver it to your homes.
             </p>
+
 
             <div>
               <button
@@ -66,13 +83,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
               </button>
             </div>
 
-            {/* 4 Feature Badges in horizontal alignment */}
+            {/* 4 Feature Badges */}
             <div className="pt-4 sm:pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-2">
               {heroBadges.map((badge, idx) => {
                 const IconComponent = badge.icon;
                 return (
                   <div key={idx} className="flex flex-col items-center sm:items-start text-center sm:text-left group">
-                    <div className="w-11 h-11 rounded-full border-2 border-[#0276FD]/60 bg-white flex items-center justify-center text-[#0276FD] shadow-xs group-hover:bg-[#0276FD] group-hover:text-white transition-colors duration-300">
+                    <div className="w-11 h-11 rounded-full border-2 border-[#0276FD]/70 bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#0276FD] shadow-xs group-hover:bg-[#0276FD] group-hover:text-white transition-colors duration-300">
                       <IconComponent className="w-5 h-5" strokeWidth={2.2} />
                     </div>
                     <span className="mt-2 text-xs font-bold text-[#0A1E3F] leading-tight max-w-[95px]">
@@ -84,32 +101,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
             </div>
           </div>
 
-          {/* Right Hero Visuals */}
-          <div className="lg:col-span-6 relative flex justify-center items-center">
-            {/* Main Hero Farm Image */}
-            <div className="relative w-full max-w-lg lg:max-w-none rounded-3xl overflow-hidden shadow-2xl border border-white/80">
-              <img
-                src="/images/hero-cows.png"
-                alt="Healthy cows and buffaloes grazing on lush green Indian dairy farm"
-                fetchPriority="high"
-                className="w-full h-[340px] sm:h-[420px] lg:h-[460px] object-cover object-[80%_center]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
-
-              {/* "Good Nutrition For A Brighter Tomorrow" Script Badge matching prototype */}
-              <div className="absolute top-5 right-5 sm:top-7 sm:right-7 select-none pointer-events-none">
-                <div className="text-right -rotate-6 transform">
-                  <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
-                    Good Nutrition
-                  </p>
-                  <p className="text-[#0276FD] font-extrabold text-xs sm:text-sm italic leading-tight drop-shadow-xs">
-                    For A
-                  </p>
-                  <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
-                    Brighter Tomorrow
-                  </p>
-                </div>
-              </div>
+          {/* Right Column: Displays the uncropped cows in background + Script Accent Badge */}
+          <div className="lg:col-span-6 relative h-52 sm:h-72 lg:h-full flex items-start justify-end pointer-events-none">
+            {/* "Good Nutrition For A Brighter Tomorrow" Script Accent */}
+            <div className="pt-2 pr-2 sm:pt-4 sm:pr-4 text-right -rotate-6 transform select-none">
+              <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
+                Good Nutrition
+              </p>
+              <p className="text-[#0276FD] font-extrabold text-xs sm:text-sm italic leading-tight drop-shadow-xs">
+                For A
+              </p>
+              <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
+                Brighter Tomorrow
+              </p>
             </div>
           </div>
         </div>
