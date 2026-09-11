@@ -55,25 +55,25 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
   };
 
   return (
-    <section id="process" className="py-20 sm:py-24 bg-[#FAFDFE] relative">
+    <section id="process" className="py-14 sm:py-24 bg-[#FAFDFE] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 sm:mb-18 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 sm:mb-18 gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-[#0276FD] block mb-1">
               Traceability & Quality
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-black text-[#0A1E3F] tracking-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-[#0A1E3F] tracking-tight">
               Our Process
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-500 max-w-xl leading-relaxed">
+            <p className="mt-1.5 text-xs sm:text-base text-slate-500 max-w-xl leading-relaxed">
               From healthy farms to happy homes, every step is taken with care.
             </p>
           </div>
           <div>
             <button
               onClick={onKnowMoreClick}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer group shadow-2xs hover:shadow-md hover:shadow-blue-500/20 active:scale-97"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer group shadow-2xs hover:shadow-md hover:shadow-blue-500/20 active:scale-97 min-h-[44px]"
             >
               Know More
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -116,22 +116,25 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
         </div>
 
         {/* Mobile & Tablet View (< lg) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 lg:hidden">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6 lg:hidden">
           {processSteps.map((step) => (
             <div
               key={step.id}
               onClick={onKnowMoreClick}
-              className="flex flex-col items-center text-center group cursor-pointer p-3 rounded-2xl hover:bg-blue-50/40 transition-colors"
+              className="flex flex-col items-center text-center group cursor-pointer p-3 rounded-2xl bg-white sm:bg-transparent border border-slate-100 sm:border-transparent hover:bg-blue-50/40 transition-colors shadow-2xs sm:shadow-none"
             >
-              <div className="relative w-16 h-16 rounded-full border-2 border-[#0276FD]/60 bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-all">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#0276FD]/60 bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-all">
                 {getStepIcon(step.iconName)}
                 <span className="absolute -top-1 -right-1 w-4.5 h-4.5 bg-[#0276FD] text-white text-[9px] font-black rounded-full flex items-center justify-center shadow-xs">
                   0{step.id}
                 </span>
               </div>
-              <h3 className="mt-3 text-xs sm:text-sm font-extrabold text-[#0A1E3F]">
+              <h3 className="mt-2.5 text-xs sm:text-sm font-extrabold text-[#0A1E3F] leading-tight">
                 {step.title}
               </h3>
+              <p className="mt-0.5 text-[10px] text-slate-400 leading-tight font-medium">
+                {step.subtitle}
+              </p>
             </div>
           ))}
         </div>

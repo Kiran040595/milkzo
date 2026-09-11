@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight, Sparkles, Check } from 'lucide-react';
 import type { CartItem } from '../types';
 
 interface CartDrawerProps {
@@ -19,13 +19,28 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onRemoveItem,
   onCheckout,
 }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const subtotal = items.reduce(
     (sum, item) => sum + item.selectedOption.price * item.quantity,
     0
   );
-  const deliveryFee = subtotal >= 199 || subtotal === 0 ? 0 : 30;
+  const freeDeliveryThreshold = 199;
+  const isFreeDelivery = subtotal >= freeDeliveryThreshold;
+  const amountNeeded = freeDeliveryThreshold - subtotal;
+  const progressPercent = Math.min(100, Math.round((subtotal / freeDeliveryThreshold) * 100));
+  const deliveryFee = isFreeDelivery || subtotal === 0 ? 0 : 30;
   const total = subtotal + deliveryFee;
 
   return (
@@ -36,27 +51,60 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         className="absolute inset-0 bg-slate-900/50 backdrop-blur-2xs transition-opacity"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col h-full animate-in slide-in-from-right duration-300">
           {/* Drawer Header */}
-          <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+          <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-[#0276FD]" />
-              <h2 className="text-lg font-bold text-[#0A1E3F]">
+              <h2 className="text-base sm:text-lg font-bold text-[#0A1E3F]">
                 Your Dairy Cart ({items.reduce((s, i) => s + i.quantity, 0)})
               </h2>
             </div>
-            <button
-              onClick={onClose}
-              aria-label="Close cart"
-              className="p-1.5 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <span className="hidden sm:inline-block text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
+                ESC
+              </span>
+              <button
+                onClick={onClose}
+                aria-label="Close cart"
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
+          {/* Desktop Free Delivery Meter */}
+          {items.length > 0 && (
+            <div className="bg-blue-50/80 px-4 sm:px-5 py-3 border-b border-blue-100/60">
+              <div className="flex items-center justify-between text-xs font-semibold mb-1.5">
+                {isFreeDelivery ? (
+                  <span className="text-emerald-700 flex items-center gap-1.5">
+                    <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" />
+                    Unlocked <strong>FREE Next-Morning Delivery</strong>!
+                  </span>
+                ) : (
+                  <span className="text-slate-700 flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-[#0276FD]" />
+                    Add <strong className="text-[#0276FD]">₹{amountNeeded}</strong> more for Free Delivery
+                  </span>
+                )}
+                <span className="text-[11px] font-bold text-slate-500">{progressPercent}%</span>
+              </div>
+              <div className="w-full h-1.5 bg-blue-200/60 rounded-full overflow-hidden">
+                <div
+                  className={`h-full transition-all duration-300 ${
+                    isFreeDelivery ? 'bg-emerald-500' : 'bg-[#0276FD]'
+                  }`}
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+            </div>
+          )}
+
           {/* Cart Content */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3 sm:space-y-4">
             {items.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4">
                 <div className="w-16 h-16 bg-blue-50 text-[#0276FD] rounded-full flex items-center justify-center">
@@ -75,51 +123,51 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               items.map((item, idx) => (
                 <div
                   key={`${item.product.id}-${item.selectedOption.label}`}
-                  className="flex items-center gap-3.5 p-3 rounded-2xl bg-slate-50/70 border border-slate-100"
+                  className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl bg-slate-50/70 border border-slate-100"
                 >
                   <img
                     src={item.product.image}
                     alt={item.product.name}
-                    className="w-16 h-16 rounded-xl object-contain bg-white p-1.5 border border-slate-100 shrink-0"
+                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-contain bg-white p-1.5 border border-slate-100 shrink-0"
                   />
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-bold text-[#0A1E3F] truncate">
+                    <h4 className="text-xs sm:text-sm font-bold text-[#0A1E3F] truncate">
                       {item.product.name}
                     </h4>
-                    <span className="text-xs text-slate-400 block">
+                    <span className="text-[11px] sm:text-xs text-slate-400 block">
                       {item.selectedOption.label}
                     </span>
-                    <span className="text-sm font-extrabold text-[#0276FD] mt-0.5 block">
+                    <span className="text-xs sm:text-sm font-extrabold text-[#0276FD] mt-0.5 block">
                       ₹{item.selectedOption.price * item.quantity}
                     </span>
                   </div>
 
-                  {/* Quantity controls */}
+                  {/* Quantity controls with 44px-friendly tap targets */}
                   <div className="flex items-center border border-slate-200 bg-white rounded-full px-1 py-0.5 shadow-2xs shrink-0">
                     <button
                       onClick={() => onUpdateQuantity(idx, item.quantity - 1)}
                       aria-label="Reduce quantity"
-                      className="w-6 h-6 flex items-center justify-center text-slate-500 hover:text-slate-800 rounded-full cursor-pointer"
+                      className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-full cursor-pointer active:scale-95"
                     >
-                      <Minus className="w-3 h-3" />
+                      <Minus className="w-3.5 h-3.5" />
                     </button>
-                    <span className="w-6 text-center text-xs font-bold text-[#0A1E3F]">
+                    <span className="w-6 text-center text-xs sm:text-sm font-bold text-[#0A1E3F]">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => onUpdateQuantity(idx, item.quantity + 1)}
                       aria-label="Increase quantity"
-                      className="w-6 h-6 flex items-center justify-center text-slate-500 hover:text-slate-800 rounded-full cursor-pointer"
+                      className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-full cursor-pointer active:scale-95"
                     >
-                      <Plus className="w-3 h-3" />
+                      <Plus className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
-                  {/* Remove Button */}
+                  {/* Remove Button with touch target */}
                   <button
                     onClick={() => onRemoveItem(idx)}
                     aria-label="Remove item"
-                    className="p-1.5 text-slate-400 hover:text-red-500 transition-colors cursor-pointer shrink-0"
+                    className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors cursor-pointer shrink-0"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -130,7 +178,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
           {/* Drawer Footer & Checkout */}
           {items.length > 0 && (
-            <div className="p-5 border-t border-slate-100 bg-slate-50/50 space-y-3">
+            <div className="p-4 sm:p-5 border-t border-slate-100 bg-slate-50/50 space-y-3 pb-6 sm:pb-5">
               <div className="space-y-1.5 text-xs text-slate-600">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
@@ -162,7 +210,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   onClose();
                   onCheckout();
                 }}
-                className="w-full py-3.5 px-6 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm font-bold rounded-full shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="w-full py-3.5 px-6 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm font-bold rounded-full shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-98"
               >
                 Proceed to Checkout (₹{total})
                 <ArrowRight className="w-4 h-4" />

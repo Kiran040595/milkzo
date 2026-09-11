@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, MapPin, Clock, Phone, User } from 'lucide-react';
 import type { CartItem } from '../types';
-
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -18,6 +17,20 @@ export const OrderModal: React.FC<OrderModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  return (
+    <OrderModalContent
+      onClose={onClose}
+      cartItems={cartItems}
+      onOrderSuccess={onOrderSuccess}
+    />
+  );
+};
+
+const OrderModalContent: React.FC<{
+  onClose: () => void;
+  cartItems: CartItem[];
+  onOrderSuccess: () => void;
+}> = ({ onClose, cartItems, onOrderSuccess }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -32,6 +45,16 @@ export const OrderModal: React.FC<OrderModalProps> = ({
   const [submitted, setSubmitted] = useState(false);
   const [orderId, setOrderId] = useState('');
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const generatedId = 'MZ-' + Math.floor(100000 + Math.random() * 900000);
@@ -45,32 +68,45 @@ export const OrderModal: React.FC<OrderModalProps> = ({
     : 76; // Default to 2 packets of milk if opened directly via Order Now
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[90vh] flex flex-col">
-        {/* Header */}
-        <div className="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-[#0A1E3F] text-white">
-          <div>
-            <h2 className="text-lg sm:text-xl font-extrabold">
-              {submitted ? 'Order Confirmed!' : 'Doorstep Fresh Delivery'}
-            </h2>
-            <p className="text-xs text-blue-200">
-              {submitted
-                ? 'Your morning freshness is scheduled!'
-                : '100% pure dairy from Indian farmers delivered by 7 AM'}
-            </p>
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200"
+    >
+      <div className="relative w-full max-w-2xl bg-white rounded-t-[28px] sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[92vh] sm:max-h-[90vh] flex flex-col">
+        {/* Header with mobile pill and desktop close */}
+        <div className="p-4 sm:p-6 border-b border-slate-100 bg-[#0A1E3F] text-white">
+          <div className="sm:hidden w-12 h-1.5 bg-white/30 rounded-full mx-auto mb-3" />
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-base sm:text-xl font-extrabold">
+                {submitted ? 'Order Confirmed!' : 'Doorstep Fresh Delivery'}
+              </h2>
+              <p className="text-[11px] sm:text-xs text-blue-200">
+                {submitted
+                  ? 'Your morning freshness is scheduled!'
+                  : '100% pure dairy from Indian farmers delivered by 7 AM'}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="hidden sm:inline-block text-[10px] font-mono text-blue-200 bg-white/10 px-1.5 py-0.5 rounded border border-white/20">
+                ESC
+              </span>
+              <button
+                onClick={onClose}
+                aria-label="Close dialog"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
-          <button
-            onClick={onClose}
-            aria-label="Close dialog"
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-          >
-            <X className="w-4 h-4" />
-          </button>
         </div>
 
         {submitted ? (
           /* Confirmation View */
-          <div className="p-8 text-center space-y-5 overflow-y-auto">
+          <div className="p-6 sm:p-8 text-center space-y-5 overflow-y-auto">
             <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
               <CheckCircle className="w-9 h-9" />
             </div>
@@ -104,14 +140,14 @@ export const OrderModal: React.FC<OrderModalProps> = ({
 
             <button
               onClick={onClose}
-              className="w-full py-3 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm font-bold rounded-full shadow-md cursor-pointer transition-all"
+              className="w-full py-3.5 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm font-bold rounded-full shadow-md cursor-pointer transition-all"
             >
               Done & Return to Homepage
             </button>
           </div>
         ) : (
           /* Order Form View */
-          <form onSubmit={handleSubmit} className="overflow-y-auto p-5 sm:p-6 space-y-4 text-xs">
+          <form onSubmit={handleSubmit} className="overflow-y-auto p-4 sm:p-6 space-y-4 text-xs">
             {/* Delivery Frequency Selection */}
             <div>
               <label className="font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
@@ -121,13 +157,13 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                 {[
                   { id: 'daily', label: 'Daily Fresh' },
                   { id: 'alternate', label: 'Alternate Days' },
-                  { id: 'onetime', label: 'One-Time Order' },
+                  { id: 'onetime', label: 'One-Time' },
                 ].map((plan) => (
                   <button
                     type="button"
                     key={plan.id}
                     onClick={() => setFormData({ ...formData, plan: plan.id })}
-                    className={`py-2 px-2.5 rounded-xl font-bold border text-center transition-all cursor-pointer ${
+                    className={`min-h-[40px] py-2 px-2 rounded-xl font-bold border text-center transition-all cursor-pointer ${
                       formData.plan === plan.id
                         ? 'border-[#0276FD] bg-blue-50 text-[#0276FD]'
                         : 'border-slate-200 text-slate-600 hover:border-slate-300'
@@ -144,30 +180,30 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               <label className="font-bold text-slate-700 uppercase tracking-wider block mb-1.5">
                 Preferred Morning Window
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setFormData({ ...formData, slot: 'early' })}
-                  className={`flex items-center gap-2 p-2.5 rounded-xl border font-medium transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 p-2.5 rounded-xl border font-medium transition-all cursor-pointer min-h-[44px] ${
                     formData.slot === 'early'
                       ? 'border-[#0276FD] bg-blue-50 text-[#0276FD]'
                       : 'border-slate-200 text-slate-600'
                   }`}
                 >
-                  <Clock className="w-4 h-4 text-[#0276FD]" />
-                  <span>5:30 AM - 7:00 AM (Recommended)</span>
+                  <Clock className="w-4 h-4 text-[#0276FD] shrink-0" />
+                  <span className="text-left">5:30 AM - 7:00 AM (Recommended)</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setFormData({ ...formData, slot: 'morning' })}
-                  className={`flex items-center gap-2 p-2.5 rounded-xl border font-medium transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 p-2.5 rounded-xl border font-medium transition-all cursor-pointer min-h-[44px] ${
                     formData.slot === 'morning'
                       ? 'border-[#0276FD] bg-blue-50 text-[#0276FD]'
                       : 'border-slate-200 text-slate-600'
                   }`}
                 >
-                  <Clock className="w-4 h-4 text-[#0276FD]" />
-                  <span>7:00 AM - 8:30 AM</span>
+                  <Clock className="w-4 h-4 text-[#0276FD] shrink-0" />
+                  <span className="text-left">7:00 AM - 8:30 AM</span>
                 </button>
               </div>
             </div>
@@ -178,14 +214,14 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                 <div>
                   <label className="font-bold text-slate-700 block mb-1">Your Full Name</label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                    <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="text"
                       required
                       placeholder="e.g. Ramesh Kumar"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
+                      className="w-full pl-9 pr-3 py-2.5 text-base sm:text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
                     />
                   </div>
                 </div>
@@ -193,14 +229,14 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                 <div>
                   <label className="font-bold text-slate-700 block mb-1">Mobile Number</label>
                   <div className="relative">
-                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="tel"
                       required
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
+                      className="w-full pl-9 pr-3 py-2.5 text-base sm:text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
                     />
                   </div>
                 </div>
@@ -209,14 +245,14 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               <div>
                 <label className="font-bold text-slate-700 block mb-1">Delivery Address (House / Flat / Street)</label>
                 <div className="relative">
-                  <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                  <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
                     type="text"
                     required
                     placeholder="Flat 402, Green Meadows Apartment, MG Road"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
+                    className="w-full pl-9 pr-3 py-2.5 text-base sm:text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
                   />
                 </div>
               </div>
@@ -227,7 +263,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                   <select
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD] bg-white"
+                    className="w-full px-3 py-2.5 text-base sm:text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD] bg-white"
                   >
                     <option value="Bengaluru">Bengaluru</option>
                     <option value="Hyderabad">Hyderabad</option>
@@ -245,7 +281,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                     placeholder="560001"
                     value={formData.pincode}
                     onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
+                    className="w-full px-3 py-2.5 text-base sm:text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0276FD]"
                   />
                 </div>
               </div>

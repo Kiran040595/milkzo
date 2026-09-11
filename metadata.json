@@ -1,0 +1,6 @@
+{
+  "name": "MilkZo",
+  "description": "Pure Dairy, Real Goodness - Direct from Our Farmers fresh dairy products delivery app.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

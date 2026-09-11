@@ -8,8 +8,6 @@ if (!fs.existsSync(outDir)) {
 }
 
 async function extract() {
-  const img = sharp('Source/Templet.jpeg');
-
   // Hero cows photo - cleanly avoiding overlapping badges
   await sharp('Source/Templet.jpeg')
     .extract({ left: 292, top: 35, width: 311, height: 265 })

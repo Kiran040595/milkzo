@@ -4,6 +4,7 @@ export const products: Product[] = [
   {
     id: 'fresh-milk',
     name: 'Fresh Milk',
+    category: 'milk',
     shortDesc: 'Pure, natural and nutritious milk for your family.',
     fullDesc: 'Procured daily at dawn directly from local dairy farmers. Untoned, free from preservatives and artificial additives, retaining all natural bioactive nutrients, creaminess, and vitamins.',
     image: '/images/product-milk.jpg',
@@ -31,6 +32,7 @@ export const products: Product[] = [
   {
     id: 'fresh-paneer',
     name: 'Fresh Paneer',
+    category: 'paneer',
     shortDesc: 'Soft, fresh and full of protein.',
     fullDesc: 'Crafted traditionally by curdling pure unadulterated cow & buffalo milk with organic lemon extracts. Velvety soft texture, high moisture retention, and rich in natural casein protein.',
     image: '/images/product-paneer.jpg',
@@ -58,6 +60,7 @@ export const products: Product[] = [
   {
     id: 'curd',
     name: 'Curd',
+    category: 'curd',
     shortDesc: 'Thick, fresh and delicious.',
     fullDesc: 'Traditional Indian dahi set in hygienic conditions using active, wholesome probiotic cultures. Rich, naturally thick without any gelatin, starch, or thickeners.',
     image: '/images/product-curd.jpg',
@@ -85,6 +88,7 @@ export const products: Product[] = [
   {
     id: 'ghee',
     name: 'Ghee',
+    category: 'ghee',
     shortDesc: 'Pure, nutritious and full of natural goodness.',
     fullDesc: 'Prepared using traditional bilona churning of curd fermented from farm fresh cow milk. Golden granules, rich aromatic scent, and loaded with fat-soluble vitamins A, D, E, and K.',
     image: '/images/product-ghee.jpg',

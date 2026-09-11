@@ -30,30 +30,30 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
   ];
 
   return (
-    <section id="about" className="py-20 sm:py-24 bg-white overflow-hidden">
+    <section id="about" className="py-14 sm:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
           {/* Left Column: Features */}
-          <div className="lg:col-span-5 space-y-7">
+          <div className="lg:col-span-5 space-y-6 sm:space-y-7">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#0276FD] block mb-1">
                 The Pure Promise
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-black text-[#0A1E3F] tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-[#0A1E3F] tracking-tight leading-tight">
                 Why Choose MilkZo?
               </h2>
             </div>
 
-            <div className="space-y-6 pt-2">
+            <div className="space-y-4 sm:space-y-6 pt-1 sm:pt-2">
               {points.map((pt, idx) => {
                 const IconComponent = pt.icon;
                 return (
-                  <div key={idx} className="flex items-start gap-4 group">
-                    <div className="w-12 h-12 rounded-full border-2 border-[#0276FD]/50 bg-gradient-to-b from-blue-50/80 to-white flex items-center justify-center text-[#0276FD] shrink-0 group-hover:bg-[#0276FD] group-hover:text-white group-hover:border-[#0276FD] group-hover:scale-105 transition-all duration-300 shadow-2xs">
-                      <IconComponent className="w-5 h-5" strokeWidth={2.2} />
+                  <div key={idx} className="flex items-start gap-3.5 sm:gap-4 group">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-[#0276FD]/50 bg-gradient-to-b from-blue-50/80 to-white flex items-center justify-center text-[#0276FD] shrink-0 group-hover:bg-[#0276FD] group-hover:text-white group-hover:border-[#0276FD] group-hover:scale-105 transition-all duration-300 shadow-2xs">
+                      <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.2} />
                     </div>
                     <div className="pt-0.5">
-                      <h3 className="text-base font-bold text-[#0A1E3F] tracking-tight group-hover:text-[#0276FD] transition-colors">
+                      <h3 className="text-sm sm:text-base font-bold text-[#0A1E3F] tracking-tight group-hover:text-[#0276FD] transition-colors">
                         {pt.title}
                       </h3>
                       <p className="text-xs sm:text-sm text-slate-500 mt-0.5 leading-relaxed">
@@ -67,8 +67,8 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
           </div>
 
           {/* Middle Column: Pure Milk Splash Art */}
-          <div className="lg:col-span-3 flex items-center justify-center py-4">
-            <div className="relative w-full max-w-[240px] aspect-square flex items-center justify-center">
+          <div className="lg:col-span-3 flex items-center justify-center py-2 sm:py-4">
+            <div className="relative w-full max-w-[200px] sm:max-w-[240px] aspect-square flex items-center justify-center">
               <img
                 src="/images/milk-splash.jpg"
                 alt="Pure Dairy Happier Families Milk Splash"
@@ -80,14 +80,14 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
 
           {/* Right Column: Premium High-Definition Navy Card */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[340px] rounded-3xl bg-gradient-to-br from-[#0B2147] via-[#081B3B] to-[#051329] p-8 text-white overflow-hidden shadow-2xl border border-blue-900/40 hover:shadow-blue-900/20 transition-all duration-300">
+            <div className="relative w-full max-w-[340px] rounded-3xl bg-gradient-to-br from-[#0B2147] via-[#081B3B] to-[#051329] p-6 sm:p-8 text-white overflow-hidden shadow-2xl border border-blue-900/40 hover:shadow-blue-900/20 transition-all duration-300">
               {/* Radial ambient glow in corner */}
               <div className="absolute -top-12 -right-12 w-36 h-36 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
 
               {/* Floating Leaf Accent */}
-              <div className="absolute top-8 right-7 animate-bounce [animation-duration:3s]">
+              <div className="absolute top-6 sm:top-8 right-6 sm:right-7 animate-bounce [animation-duration:3s]">
                 <svg
-                  className="w-8 h-8 text-[#48BB78] drop-shadow-md rotate-12"
+                  className="w-7 h-7 sm:w-8 sm:h-8 text-[#48BB78] drop-shadow-md rotate-12"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
@@ -96,7 +96,7 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
               </div>
 
               <div className="relative z-10 space-y-4">
-                <h3 className="text-2xl sm:text-[28px] font-black leading-tight tracking-tight">
+                <h3 className="text-xl sm:text-[28px] font-black leading-tight tracking-tight">
                   Freshness
                   <br />
                   Delivered Daily
@@ -108,7 +108,7 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
                 <div className="pt-2">
                   <button
                     onClick={onOrderClick}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#0A1E3F] hover:bg-blue-50 text-xs sm:text-sm font-black rounded-full shadow-lg shadow-black/10 transition-all cursor-pointer group hover:scale-102 active:scale-98"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#0A1E3F] hover:bg-blue-50 text-xs sm:text-sm font-black rounded-full shadow-lg shadow-black/10 transition-all cursor-pointer group hover:scale-102 active:scale-98 min-h-[44px]"
                   >
                     Order Now
                     <ArrowRight className="w-3.5 h-3.5 text-[#0276FD] group-hover:translate-x-1 transition-transform" />
@@ -116,16 +116,16 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
                 </div>
 
                 {/* Line-art Illustration: Delivery Truck & House */}
-                <div className="pt-8 flex items-end justify-between opacity-85">
+                <div className="pt-6 sm:pt-8 flex items-end justify-between opacity-85">
                   <div className="border border-blue-400/30 rounded-xl p-2.5 flex items-center gap-2.5 bg-white/5 backdrop-blur-2xs">
-                    <Truck className="w-7 h-7 text-blue-300" strokeWidth={1.5} />
+                    <Truck className="w-6 h-6 sm:w-7 sm:h-7 text-blue-300" strokeWidth={1.5} />
                     <span className="text-[10px] text-blue-200 font-bold uppercase tracking-wider">
                       Express Cold Chain
                     </span>
                   </div>
 
                   <div className="text-blue-300/90 pr-2">
-                    <Home className="w-9 h-9" strokeWidth={1.5} />
+                    <Home className="w-8 h-8 sm:w-9 sm:h-9" strokeWidth={1.5} />
                   </div>
                 </div>
               </div>

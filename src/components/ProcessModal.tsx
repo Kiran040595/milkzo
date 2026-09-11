@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, CheckCircle } from 'lucide-react';
-
 
 interface ProcessModalProps {
   isOpen: boolean;
@@ -8,6 +7,17 @@ interface ProcessModalProps {
 }
 
 export const ProcessModal: React.FC<ProcessModalProps> = ({ isOpen, onClose }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const stepsDetail = [
@@ -50,52 +60,62 @@ export const ProcessModal: React.FC<ProcessModalProps> = ({ isOpen, onClose }) =
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[90vh] flex flex-col">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200"
+    >
+      <div className="relative w-full max-w-2xl bg-white rounded-t-[28px] sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[88vh] sm:max-h-[90vh] flex flex-col animate-in slide-in-from-bottom-5 sm:slide-in-from-bottom-0 duration-300">
+        {/* Mobile drag bar */}
+        <div className="sm:hidden w-full flex justify-center pt-2.5 pb-1 bg-[#0A1E3F]">
+          <div className="w-10 h-1 rounded-full bg-white/30" />
+        </div>
+
         {/* Header */}
-        <div className="p-5 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-[#0A1E3F] text-white">
+        <div className="p-4 sm:p-6 border-b border-slate-100 flex items-center justify-between bg-[#0A1E3F] text-white">
           <div>
-            <h2 className="text-lg sm:text-xl font-extrabold">The MilkZo Quality Journey</h2>
-            <p className="text-xs text-blue-200">How real goodness travels from our farms to your family</p>
+            <h2 className="text-base sm:text-xl font-extrabold">The MilkZo Quality Journey</h2>
+            <p className="text-[11px] sm:text-xs text-blue-200">How real goodness travels from our farms to your family</p>
           </div>
           <button
             onClick={onClose}
             aria-label="Close dialog"
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+            className="w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer active:scale-95"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto space-y-4 text-slate-700">
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-3 sm:space-y-4 text-slate-700">
           {stepsDetail.map((s) => (
             <div
               key={s.step}
-              className="flex gap-4 p-3.5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-colors"
+              className="flex gap-3 sm:gap-4 p-3 sm:p-3.5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-colors"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#0276FD] text-white font-extrabold text-sm flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0276FD] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs">
                 {s.step}
               </div>
-              <div className="space-y-1">
-                <h3 className="text-sm sm:text-base font-bold text-[#0A1E3F]">
+              <div className="space-y-0.5 sm:space-y-1">
+                <h3 className="text-xs sm:text-base font-bold text-[#0A1E3F]">
                   {s.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className="text-[11px] sm:text-sm text-slate-600 leading-relaxed">
                   {s.desc}
                 </p>
-                <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#0276FD] pt-0.5">
-                  <CheckCircle className="w-3.5 h-3.5" />
+                <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-[#0276FD] pt-0.5">
+                  <CheckCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>{s.highlight}</span>
                 </div>
               </div>
             </div>
           ))}
 
-          <div className="pt-2 text-center">
+          <div className="pt-2 pb-2 text-center">
             <button
               onClick={onClose}
-              className="px-8 py-2.5 bg-[#0276FD] hover:bg-[#0060d6] text-white text-xs sm:text-sm font-bold rounded-full shadow-md transition-all cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3 sm:py-2.5 bg-[#0276FD] hover:bg-[#0060d6] text-white text-xs sm:text-sm font-bold rounded-xl sm:rounded-full shadow-md transition-all cursor-pointer min-h-[44px]"
             >
               Got It
             </button>

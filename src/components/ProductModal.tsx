@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Plus, Minus, CheckCircle, ShieldCheck } from 'lucide-react';
 import type { Product } from '../types';
 
@@ -19,9 +19,38 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 }) => {
   if (!product) return null;
 
+  return (
+    <ProductModalContent
+      key={product.id}
+      product={product}
+      onClose={onClose}
+      onAddToCart={onAddToCart}
+    />
+  );
+};
+
+const ProductModalContent: React.FC<{
+  product: Product;
+  onClose: () => void;
+  onAddToCart: (
+    product: Product,
+    selectedOption: { label: string; price: number },
+    quantity: number
+  ) => void;
+}> = ({ product, onClose, onAddToCart }) => {
   const [selectedOption, setSelectedOption] = useState(product.options[0]);
   const [quantity, setQuantity] = useState(1);
   const [addedAnimation, setAddedAnimation] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   const handleAdd = () => {
     onAddToCart(product, selectedOption, quantity);
@@ -33,21 +62,34 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[90vh] flex flex-col">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          aria-label="Close modal"
-          className="absolute top-4 right-4 z-10 w-9 h-9 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors cursor-pointer"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200"
+    >
+      <div className="relative w-full max-w-2xl bg-white rounded-t-[28px] sm:rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[92vh] sm:max-h-[90vh] flex flex-col">
+        {/* Mobile drag handle */}
+        <div className="sm:hidden w-12 h-1.5 bg-slate-300 rounded-full mx-auto mt-2.5 mb-1 shrink-0" />
 
-        <div className="overflow-y-auto p-6 sm:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        {/* Close Button */}
+        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex items-center gap-2">
+          <span className="hidden sm:inline-block text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
+            ESC
+          </span>
+          <button
+            onClick={onClose}
+            aria-label="Close modal"
+            className="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-colors cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="overflow-y-auto p-5 sm:p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 items-center">
             {/* Product Image */}
-            <div className="w-full aspect-square bg-slate-50 rounded-2xl flex items-center justify-center p-4 border border-slate-100">
+            <div className="w-full aspect-[4/3] sm:aspect-square bg-slate-50 rounded-2xl flex items-center justify-center p-3 sm:p-4 border border-slate-100">
               <img
                 src={product.image}
                 alt={product.name}
@@ -56,20 +98,20 @@ export const ProductModal: React.FC<ProductModalProps> = ({
             </div>
 
             {/* Product Details */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
                 <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#0276FD] uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-full">
                   <ShieldCheck className="w-3.5 h-3.5" /> 100% Farm Fresh
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0A1E3F] mt-1.5">
+                <h2 className="text-xl sm:text-3xl font-extrabold text-[#0A1E3F] mt-1 sm:mt-1.5">
                   {product.name}
                 </h2>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-2xl font-black text-[#0276FD]">
+                <div className="flex items-baseline gap-2 mt-0.5 sm:mt-1">
+                  <span className="text-xl sm:text-2xl font-black text-[#0276FD]">
                     ₹{selectedOption.price * quantity}
                   </span>
                   {product.originalPrice && (
-                    <span className="text-sm text-slate-400 line-through">
+                    <span className="text-xs sm:text-sm text-slate-400 line-through">
                       ₹{Math.round(product.originalPrice * (selectedOption.price / product.price)) * quantity}
                     </span>
                   )}
@@ -82,7 +124,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
               {/* Weight / Pack size options */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                <label className="text-[11px] sm:text-xs font-bold text-slate-700 uppercase tracking-wider">
                   Select Pack Size:
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -90,7 +132,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     <button
                       key={opt.label}
                       onClick={() => setSelectedOption(opt)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                      className={`min-h-[38px] px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                         selectedOption.label === opt.label
                           ? 'border-[#0276FD] bg-blue-50 text-[#0276FD]'
                           : 'border-slate-200 text-slate-600 hover:border-slate-300'
@@ -103,12 +145,12 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </div>
 
               {/* Quantity Controls */}
-              <div className="flex items-center gap-4 pt-1">
+              <div className="flex items-center gap-3 sm:gap-4 pt-1">
                 <div className="flex items-center border border-slate-200 rounded-full px-2 py-1 bg-slate-50">
                   <button
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                     aria-label="Decrease quantity"
-                    className="w-7 h-7 flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-full cursor-pointer"
+                    className="w-8 h-8 flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-full cursor-pointer active:scale-95"
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
@@ -118,7 +160,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   <button
                     onClick={() => setQuantity((q) => q + 1)}
                     aria-label="Increase quantity"
-                    className="w-7 h-7 flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-full cursor-pointer"
+                    className="w-8 h-8 flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-full cursor-pointer active:scale-95"
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>
@@ -126,7 +168,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
                 <button
                   onClick={handleAdd}
-                  className={`flex-1 py-3 px-6 rounded-full text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                  className={`flex-1 py-3 sm:py-3.5 px-4 sm:px-6 rounded-full text-xs sm:text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 ${
                     addedAnimation
                       ? 'bg-green-600 text-white'
                       : 'bg-[#0276FD] hover:bg-[#0060d6] text-white shadow-blue-500/20'

@@ -7,7 +7,7 @@ export const PromiseBanner: React.FC = () => {
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#dcedfc] via-[#e9f4fd] to-[#d7ecff] shadow-md border border-blue-100/80">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             {/* Left Content */}
-            <div className="p-8 sm:p-12 lg:p-14 lg:col-span-5 z-10 space-y-4">
+            <div className="p-6 sm:p-12 lg:p-14 lg:col-span-5 z-10 space-y-3 sm:space-y-4">
               <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#0276FD] block">
                 THE MILKZO PROMISE
               </span>
@@ -15,13 +15,13 @@ export const PromiseBanner: React.FC = () => {
                 From Our Farms <br className="hidden sm:inline" />
                 to Your Family
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 max-w-md leading-relaxed font-medium">
+              <p className="text-xs sm:text-base text-slate-600 max-w-md leading-relaxed font-medium">
                 Wholesome dairy products, made with care, for a healthier and happier tomorrow. Supporting our hardworking dairy farmers with fair compensation and cattle care.
               </p>
             </div>
 
             {/* Right Banner Image with High-Res Farmer & Cattle */}
-            <div className="lg:col-span-7 h-64 sm:h-80 lg:h-full min-h-[300px] relative overflow-hidden">
+            <div className="lg:col-span-7 h-52 sm:h-80 lg:h-full min-h-[220px] sm:min-h-[300px] relative overflow-hidden">
               <img
                 src="/images/promise-farmer.png"
                 alt="Indian dairy farmer caring for cow and buffalo on green farm"

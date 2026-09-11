@@ -82,6 +82,22 @@ export const AppDownloadSection: React.FC = () => {
                 </div>
               </a>
             </div>
+
+            {/* Desktop-Only QR Code Instant Download Card */}
+            <div className="hidden lg:flex items-center gap-3.5 pt-3 p-3.5 bg-white/80 backdrop-blur-md rounded-2xl border border-white/90 shadow-xs max-w-xs">
+              <div className="w-14 h-14 bg-white p-1.5 rounded-xl border border-slate-200 flex items-center justify-center shrink-0 shadow-2xs">
+                {/* SVG QR Code Pattern */}
+                <svg viewBox="0 0 24 24" className="w-full h-full text-slate-800" fill="currentColor">
+                  <path d="M2 2h7v7H2V2zm2 2v3h3V4H4zm11-2h7v7h-7V2zm2 2v3h3V4h-3zM2 15h7v7H2v-7zm2 2v3h3v-3H4zm14-2h3v3h-3v-3zm-5-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm4 4h3v3h-3v-3zm-2-2h2v2h-2v-2zm-5-5h2v2H8v-2zm3 0h2v2h-2v-2zm2 2h2v2h-2v-2z" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <p className="text-xs font-bold text-[#0A1E3F]">Scan with Phone</p>
+                <p className="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
+                  Point camera to install MilkZo on iOS or Android instantly
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Center Column: Phone Mockup Image from Prototype */}
@@ -98,22 +114,22 @@ export const AppDownloadSection: React.FC = () => {
 
           {/* Right Column: Feature Checklist with Glass Cards */}
           <div className="lg:col-span-4 flex justify-center lg:justify-start">
-            <div className="space-y-3 w-full max-w-sm">
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3 w-full max-w-sm">
               {appFeatures.map((feat, idx) => {
                 const IconComponent = feat.icon;
                 return (
                   <div
                     key={idx}
-                    className="flex items-center gap-3.5 p-3 px-4 rounded-2xl bg-white/70 backdrop-blur-md border border-white/90 shadow-xs hover:bg-white hover:shadow-md hover:border-blue-100 transition-all duration-300 hover:translate-x-1"
+                    className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3.5 p-3 sm:px-4 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 shadow-xs hover:bg-white hover:shadow-md hover:border-blue-100 transition-all duration-300"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#0276FD] flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-50 text-[#0276FD] flex items-center justify-center shrink-0">
                       <IconComponent className="w-4 h-4" strokeWidth={2.2} />
                     </div>
                     <div>
                       <h3 className="text-xs sm:text-sm font-extrabold text-[#0A1E3F]">
                         {feat.title}
                       </h3>
-                      <p className="text-[11px] text-slate-500 font-medium">
+                      <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium leading-tight sm:leading-normal">
                         {feat.desc}
                       </p>
                     </div>

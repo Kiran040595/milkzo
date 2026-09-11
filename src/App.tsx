@@ -8,6 +8,7 @@ import { WhyChooseSection } from './components/WhyChooseSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { AppDownloadSection } from './components/AppDownloadSection';
 import { Footer } from './components/Footer';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { ProductModal } from './components/ProductModal';
 import { CartDrawer } from './components/CartDrawer';
 import { OrderModal } from './components/OrderModal';
@@ -119,12 +120,16 @@ export function App() {
   };
 
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalCartPrice = cartItems.reduce(
+    (acc, item) => acc + item.selectedOption.price * item.quantity,
+    0
+  );
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-800 antialiased font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-[#0A1E3F] text-white text-xs sm:text-sm font-semibold rounded-2xl shadow-xl border border-blue-400/30 animate-in slide-in-from-bottom-5 duration-200">
+        <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 left-4 sm:left-auto z-50 flex items-center justify-center sm:justify-start gap-2.5 px-4 py-3 bg-[#0A1E3F] text-white text-xs sm:text-sm font-semibold rounded-2xl shadow-xl border border-blue-400/30 animate-in slide-in-from-bottom-5 duration-200">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>{toastMessage}</span>
         </div>
@@ -170,6 +175,17 @@ export function App() {
 
       {/* Footer */}
       <Footer onNavigate={handleNavigate} />
+
+      {/* Mobile Sticky Bottom Navigation Bar & Cart Pill */}
+      <MobileBottomNav
+        cartCount={totalCartCount}
+        cartTotal={totalCartPrice}
+        activeSection={activeSection}
+        onNavigate={handleNavigate}
+        onOpenCart={() => setCartOpen(true)}
+        onOpenOrder={() => setOrderOpen(true)}
+        onOpenSearch={() => setSearchOpen(true)}
+      />
 
       {/* Product Detail Modal */}
       <ProductModal
