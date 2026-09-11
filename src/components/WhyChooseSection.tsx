@@ -30,13 +30,13 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
   ];
 
   return (
-    <section id="about" className="py-14 sm:py-24 bg-white overflow-hidden">
+    <section id="about" className="scroll-mt-20 py-10 sm:py-14 lg:py-16 xl:py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-8 items-center">
           {/* Left Column: Features */}
-          <div className="lg:col-span-5 space-y-6 sm:space-y-7">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6">
             <div>
-              <h2 className="text-2xl sm:text-4xl lg:text-[38px] font-black text-[#0A1E3F] tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-black text-[#0A1E3F] tracking-tight leading-tight">
                 Why Choose MilkZo?
               </h2>
             </div>

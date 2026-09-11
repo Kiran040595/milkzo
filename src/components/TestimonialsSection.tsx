@@ -32,12 +32,12 @@ export const TestimonialsSection: React.FC = () => {
   };
 
   return (
-    <section className="py-14 sm:py-24 bg-gradient-to-b from-[#F9FBFC] to-white relative overflow-hidden">
+    <section className="py-10 sm:py-14 lg:py-16 xl:py-20 bg-gradient-to-b from-[#F9FBFC] to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Navigation Controls */}
-        <div className="flex items-end justify-between mb-8 sm:mb-14">
+        <div className="flex items-end justify-between mb-6 sm:mb-10">
           <div>
-            <h2 className="text-2xl sm:text-4xl lg:text-[38px] font-black text-[#0A1E3F] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-black text-[#0A1E3F] tracking-tight">
               What Our Customers Say
             </h2>
           </div>

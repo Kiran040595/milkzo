@@ -55,22 +55,22 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
   };
 
   return (
-    <section id="process" className="py-14 sm:py-24 bg-[#FAFDFE] relative">
+    <section id="process" className="scroll-mt-20 py-10 sm:py-14 lg:py-16 xl:py-20 bg-[#FAFDFE] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 sm:mb-16 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4">
           <div>
-            <h2 className="text-2xl sm:text-4xl lg:text-[38px] font-black text-[#0A1E3F] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-black text-[#0A1E3F] tracking-tight">
               Our Process
             </h2>
-            <p className="mt-1.5 text-xs sm:text-base text-slate-500 max-w-xl leading-relaxed">
+            <p className="mt-1 text-xs sm:text-sm lg:text-base text-slate-500 max-w-xl leading-relaxed">
               From healthy farms to happy homes, every step is taken with care.
             </p>
           </div>
           <div>
             <button
               onClick={onKnowMoreClick}
-              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full border border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer"
             >
               Know More
               <ArrowRight className="w-3.5 h-3.5" />
@@ -80,7 +80,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
 
         {/* 6 Step Sequence: Single unbroken row on desktop */}
         {/* Desktop View (lg) */}
-        <div className="hidden lg:flex items-center justify-between gap-2">
+        <div className="hidden lg:flex items-center justify-between gap-1 xl:gap-2">
           {processSteps.map((step, idx) => (
             <React.Fragment key={step.id}>
               {/* Step Item */}
@@ -88,18 +88,18 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
                 onClick={onKnowMoreClick}
                 className="flex-1 flex flex-col items-center text-center group cursor-pointer"
               >
-                <div className="w-18 h-18 rounded-full border-2 border-[#0276FD] bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-all duration-300">
+                <div className="w-14 h-14 lg:w-15 lg:h-15 xl:w-18 xl:h-18 rounded-full border-2 border-[#0276FD] bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-all duration-300">
                   {getStepIcon(step.iconName)}
                 </div>
-                <h3 className="mt-3.5 text-xs sm:text-sm font-bold text-[#0A1E3F] leading-snug max-w-[110px]">
+                <h3 className="mt-3 text-xs lg:text-[13px] xl:text-sm font-bold text-[#0A1E3F] leading-snug max-w-[105px]">
                   {step.title}
                 </h3>
               </div>
 
               {/* Arrow Divider */}
               {idx < processSteps.length - 1 && (
-                <div className="text-slate-400 px-1 shrink-0">
-                  <ChevronRight className="w-5 h-5 text-slate-400" strokeWidth={2} />
+                <div className="text-slate-300 px-0.5 xl:px-1 shrink-0">
+                  <ChevronRight className="w-4 h-4 xl:w-5 xl:h-5 text-slate-300" strokeWidth={2} />
                 </div>
               )}
             </React.Fragment>

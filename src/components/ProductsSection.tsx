@@ -13,15 +13,15 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
   onSelectProduct,
 }) => {
   return (
-    <section id="products" className="py-14 sm:py-20 bg-white relative">
+    <section id="products" className="scroll-mt-20 py-10 sm:py-14 lg:py-16 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-10 gap-3">
           <div>
-            <h2 className="text-2xl sm:text-4xl lg:text-[38px] font-black text-[#0A1E3F] tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-black text-[#0A1E3F] tracking-tight leading-tight">
               Our Products
             </h2>
-            <p className="mt-1.5 text-xs sm:text-base text-slate-500 max-w-xl leading-relaxed">
+            <p className="mt-1 text-xs sm:text-sm lg:text-base text-slate-500 max-w-xl leading-relaxed">
               Wholesome dairy products, made with care, for a healthier and happier tomorrow.
             </p>
           </div>
@@ -33,7 +33,7 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
                 const el = document.getElementById('products');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full border border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer"
             >
               View All Products
               <ArrowRight className="w-3.5 h-3.5" />
@@ -42,16 +42,16 @@ export const ProductsSection: React.FC<ProductsSectionProps> = ({
         </div>
 
         {/* 4 Product Cards Grid: 4 columns on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-5 xl:gap-6">
           {products.slice(0, 4).map((product) => (
             <div
               key={product.id}
-              className="group flex flex-col bg-white rounded-2xl border border-slate-100 p-4 sm:p-5 shadow-xs hover:shadow-lg hover:border-blue-200 transition-all duration-300"
+              className="group flex flex-col bg-white rounded-2xl border border-slate-100 p-4 lg:p-4.5 xl:p-5 shadow-xs hover:shadow-lg hover:border-blue-200 transition-all duration-300"
             >
               {/* Product Image Container */}
               <div
                 onClick={() => onSelectProduct(product)}
-                className="w-full aspect-[4/3.8] bg-[#F4F8FC] rounded-xl overflow-hidden mb-4 cursor-pointer flex items-center justify-center p-3 sm:p-4 group-hover:scale-102 transition-transform duration-300"
+                className="w-full aspect-[4/3.6] bg-[#F4F8FC] rounded-xl overflow-hidden mb-3.5 cursor-pointer flex items-center justify-center p-3 sm:p-4 group-hover:scale-102 transition-transform duration-300"
               >
                 <img
                   src={product.image}
