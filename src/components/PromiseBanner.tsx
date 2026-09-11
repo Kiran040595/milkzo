@@ -16,7 +16,7 @@ export const PromiseBanner: React.FC = () => {
                 to Your Family
               </h2>
               <p className="text-xs sm:text-base text-slate-600 max-w-md leading-relaxed font-medium">
-                Wholesome dairy products, made with care, for a healthier and happier tomorrow. Supporting our hardworking dairy farmers with fair compensation and cattle care.
+                Wholesome dairy products, made with care, for a healthier and happier tomorrow.
               </p>
             </div>
 

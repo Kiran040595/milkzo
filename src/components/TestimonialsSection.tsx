@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Star, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { testimonials } from '../data/mockData';
 
 export const TestimonialsSection: React.FC = () => {
@@ -35,12 +35,9 @@ export const TestimonialsSection: React.FC = () => {
     <section className="py-14 sm:py-24 bg-gradient-to-b from-[#F9FBFC] to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Navigation Controls */}
-        <div className="flex items-end justify-between mb-8 sm:mb-16">
+        <div className="flex items-end justify-between mb-8 sm:mb-14">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#0276FD] block mb-1">
-              Community Love
-            </span>
-            <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-[#0A1E3F] tracking-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-[38px] font-black text-[#0A1E3F] tracking-tight">
               What Our Customers Say
             </h2>
           </div>
@@ -50,14 +47,14 @@ export const TestimonialsSection: React.FC = () => {
             <button
               onClick={handlePrev}
               aria-label="Previous testimonial"
-              className="w-10 h-10 rounded-full border border-slate-200 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
+              className="w-9 h-9 rounded-full border border-slate-300 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Next testimonial"
-              className="w-10 h-10 rounded-full border border-slate-200 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
+              className="w-9 h-9 rounded-full border border-slate-300 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -67,26 +64,21 @@ export const TestimonialsSection: React.FC = () => {
         {/* Testimonial Cards: snap-scroll on mobile, grid on desktop */}
         <div
           ref={scrollContainerRef}
-          className="flex md:grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 md:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar"
+          className="flex md:grid md:grid-cols-3 gap-5 lg:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 md:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar"
         >
-          {testimonials.map((t, idx) => {
-            const isHighlighted = idx === currentIndex;
+          {testimonials.map((t) => {
             return (
               <div
                 key={t.id}
-                className={`min-w-[85vw] sm:min-w-[340px] md:min-w-0 snap-center bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border transition-all duration-300 flex flex-col justify-between relative hover:-translate-y-1 ${
-                  isHighlighted
-                    ? 'border-blue-300 shadow-[0_8px_24px_rgba(2,118,253,0.12)] ring-1 ring-blue-100'
-                    : 'border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-md hover:border-slate-200'
-                }`}
+                className="min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center bg-white rounded-2xl p-6 sm:p-7 border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   {/* 5 Gold Stars */}
-                  <div className="flex items-center gap-1.5 mb-4 sm:mb-5 text-[#F59E0B]">
+                  <div className="flex items-center gap-1 mb-4 text-[#F59E0B]">
                     {[...Array(t.rating)].map((_, i) => (
                       <Star
                         key={i}
-                        className="w-4 h-4 fill-amber-400 text-amber-400 drop-shadow-2xs"
+                        className="w-4 h-4 fill-amber-400 text-amber-400"
                       />
                     ))}
                   </div>
@@ -98,29 +90,24 @@ export const TestimonialsSection: React.FC = () => {
                 </div>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-3.5 pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-slate-100">
-                  <div className="relative shrink-0">
-                    <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border border-blue-100 shadow-xs"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                          t.name
-                        )}&background=0276FD&color=fff&size=88`;
-                      }}
-                    />
-                    <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center text-white" title="Verified Customer">
-                      <CheckCircle className="w-2 sm:w-2.5 h-2 sm:h-2.5" />
-                    </span>
-                  </div>
+                <div className="flex items-center gap-3 pt-5 mt-5 border-t border-slate-100">
+                  <img
+                    src={t.avatar}
+                    alt={t.name}
+                    className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                        t.name
+                      )}&background=0276FD&color=fff&size=80`;
+                    }}
+                  />
                   <div className="min-w-0">
-                    <h4 className="text-sm font-extrabold text-[#0A1E3F] truncate">
+                    <h4 className="text-sm font-bold text-[#0A1E3F] truncate">
                       {t.name}
                     </h4>
-                    <p className="text-xs text-slate-400 font-semibold truncate">
-                      {t.city} • Verified Buyer
+                    <p className="text-xs text-slate-400 font-medium truncate">
+                      {t.city}
                     </p>
                   </div>
                 </div>

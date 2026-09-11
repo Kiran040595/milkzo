@@ -226,12 +226,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
-          <p>© 2026 MilkZo Technologies. All rights reserved.</p>
-          <div className="flex items-center gap-5">
+          <p>© 2024 MilkZo. All rights reserved.</p>
+          <div className="flex items-center gap-4">
             <a href="#privacy" className="hover:text-slate-300 transition-colors">
               Privacy Policy
             </a>
-            <span>•</span>
+            <span>|</span>
             <a href="#terms" className="hover:text-slate-300 transition-colors">
               Terms & Conditions
             </a>

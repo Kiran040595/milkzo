@@ -58,12 +58,9 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
     <section id="process" className="py-14 sm:py-24 bg-[#FAFDFE] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 sm:mb-18 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 sm:mb-16 gap-4">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#0276FD] block mb-1">
-              Traceability & Quality
-            </span>
-            <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-[#0A1E3F] tracking-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-[38px] font-black text-[#0A1E3F] tracking-tight">
               Our Process
             </h2>
             <p className="mt-1.5 text-xs sm:text-base text-slate-500 max-w-xl leading-relaxed">
@@ -73,42 +70,36 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
           <div>
             <button
               onClick={onKnowMoreClick}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer group shadow-2xs hover:shadow-md hover:shadow-blue-500/20 active:scale-97 min-h-[44px]"
+              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-[#0276FD] text-[#0276FD] hover:bg-[#0276FD] hover:text-white text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer"
             >
               Know More
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
         {/* 6 Step Sequence: Single unbroken row on desktop */}
         {/* Desktop View (lg) */}
-        <div className="hidden lg:flex items-center justify-between gap-3">
+        <div className="hidden lg:flex items-center justify-between gap-2">
           {processSteps.map((step, idx) => (
             <React.Fragment key={step.id}>
               {/* Step Item */}
               <div
                 onClick={onKnowMoreClick}
-                className="flex-1 flex flex-col items-center text-center group cursor-pointer transition-all duration-300 hover:-translate-y-1.5"
+                className="flex-1 flex flex-col items-center text-center group cursor-pointer"
               >
-                <div className="relative w-20 h-20 rounded-full border-2 border-[#0276FD]/60 bg-gradient-to-b from-white to-blue-50/40 flex items-center justify-center shadow-xs group-hover:shadow-lg group-hover:shadow-blue-500/20 group-hover:border-[#0276FD] group-hover:scale-108 transition-all duration-300">
+                <div className="w-18 h-18 rounded-full border-2 border-[#0276FD] bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-all duration-300">
                   {getStepIcon(step.iconName)}
-                  <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#0276FD] text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-xs">
-                    0{step.id}
-                  </span>
                 </div>
-                <h3 className="mt-4 text-sm font-extrabold text-[#0A1E3F] group-hover:text-[#0276FD] transition-colors leading-tight">
+                <h3 className="mt-3.5 text-xs sm:text-sm font-bold text-[#0A1E3F] leading-snug max-w-[110px]">
                   {step.title}
                 </h3>
-                <p className="mt-1 text-[11px] text-slate-400 max-w-[120px] leading-tight font-medium">
-                  {step.subtitle}
-                </p>
               </div>
 
               {/* Arrow Divider */}
               {idx < processSteps.length - 1 && (
-                <div className="text-blue-300 px-1 shrink-0">
-                  <ChevronRight className="w-5 h-5 opacity-80" strokeWidth={2.5} />
+                <div className="text-slate-400 px-1 shrink-0">
+                  <ChevronRight className="w-5 h-5 text-slate-400" strokeWidth={2} />
                 </div>
               )}
             </React.Fragment>
@@ -123,18 +114,12 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
               onClick={onKnowMoreClick}
               className="flex flex-col items-center text-center group cursor-pointer p-3 rounded-2xl bg-white sm:bg-transparent border border-slate-100 sm:border-transparent hover:bg-blue-50/40 transition-colors shadow-2xs sm:shadow-none"
             >
-              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#0276FD]/60 bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-all">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#0276FD] bg-white flex items-center justify-center shadow-xs">
                 {getStepIcon(step.iconName)}
-                <span className="absolute -top-1 -right-1 w-4.5 h-4.5 bg-[#0276FD] text-white text-[9px] font-black rounded-full flex items-center justify-center shadow-xs">
-                  0{step.id}
-                </span>
               </div>
-              <h3 className="mt-2.5 text-xs sm:text-sm font-extrabold text-[#0A1E3F] leading-tight">
+              <h3 className="mt-2 text-xs sm:text-sm font-bold text-[#0A1E3F] leading-tight max-w-[100px]">
                 {step.title}
               </h3>
-              <p className="mt-0.5 text-[10px] text-slate-400 leading-tight font-medium">
-                {step.subtitle}
-              </p>
             </div>
           ))}
         </div>

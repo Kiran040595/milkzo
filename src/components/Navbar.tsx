@@ -80,38 +80,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Right Action Icons & Button */}
-          <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-4">
-            {/* Desktop Search Pill (lg+) */}
+          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
+            {/* Search Icon Button */}
             <button
               onClick={onOpenSearch}
               aria-label="Search dairy products"
-              className="hidden lg:flex items-center gap-2.5 px-3.5 py-2 bg-slate-100/80 hover:bg-blue-50/80 text-slate-500 hover:text-[#0276FD] rounded-full border border-slate-200/60 hover:border-blue-200 transition-all duration-200 cursor-pointer group"
+              className="w-10 h-10 flex items-center justify-center text-slate-700 hover:text-[#0276FD] hover:bg-blue-50/70 rounded-full transition-all duration-200 cursor-pointer"
             >
-              <Search className="w-4 h-4 text-slate-400 group-hover:text-[#0276FD] transition-colors" strokeWidth={2.2} />
-              <span className="text-xs font-medium text-slate-500 group-hover:text-slate-700">Search dairy...</span>
-              <kbd className="text-[10px] font-mono bg-white text-slate-500 px-1.5 py-0.5 rounded shadow-2xs border border-slate-200 group-hover:border-blue-200">
-                ⌘K
-              </kbd>
+              <Search className="w-5 h-5" strokeWidth={2} />
             </button>
 
-            {/* Compact Search Button (< lg) */}
-            <button
-              onClick={onOpenSearch}
-              aria-label="Search dairy products"
-              className="lg:hidden w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center text-slate-600 hover:text-[#0276FD] hover:bg-blue-50/70 rounded-full transition-all duration-200 cursor-pointer"
-            >
-              <Search className="w-5 h-5" strokeWidth={2.2} />
-            </button>
-
-            {/* Shopping Cart Button with Desktop Hover Badge */}
+            {/* Shopping Cart Button */}
             <div className="relative group">
               <button
                 onClick={onOpenCart}
                 aria-label={`Shopping cart with ${cartCount} items`}
-                className="relative w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center text-slate-600 hover:text-[#0276FD] hover:bg-blue-50/70 rounded-full transition-all duration-200 cursor-pointer"
+                className="relative w-10 h-10 flex items-center justify-center text-slate-700 hover:text-[#0276FD] hover:bg-blue-50/70 rounded-full transition-all duration-200 cursor-pointer"
               >
-                <ShoppingBag className="w-5 h-5" strokeWidth={2.2} />
-                <span className="absolute top-1 right-1 min-w-4.5 h-4.5 px-1 bg-[#0276FD] text-white text-[10px] font-extrabold rounded-full flex items-center justify-center shadow-md shadow-blue-500/30 animate-in zoom-in-50 duration-200">
+                <ShoppingBag className="w-5 h-5" strokeWidth={2} />
+                <span className="absolute top-1 right-1 min-w-4.5 h-4.5 px-1 bg-[#0276FD] text-white text-[10px] font-extrabold rounded-full flex items-center justify-center shadow-xs">
                   {cartCount}
                 </span>
               </button>
@@ -130,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Order Now Pill Button */}
             <button
               onClick={onOpenOrder}
-              className="hidden sm:inline-flex items-center justify-center px-6 lg:px-7 py-2.5 bg-gradient-to-r from-[#0276FD] to-[#0062e0] hover:from-[#0067e6] hover:to-[#0054c2] text-white text-sm font-bold rounded-full shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 active:scale-97 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+              className="hidden sm:inline-flex items-center justify-center px-6 lg:px-7 py-2.5 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm font-bold rounded-full shadow-md shadow-blue-500/20 active:scale-97 transition-all duration-200 cursor-pointer"
             >
               Order Now
             </button>

@@ -36,24 +36,21 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOrderClick
           {/* Left Column: Features */}
           <div className="lg:col-span-5 space-y-6 sm:space-y-7">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#0276FD] block mb-1">
-                The Pure Promise
-              </span>
-              <h2 className="text-2xl sm:text-4xl lg:text-[40px] font-black text-[#0A1E3F] tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-4xl lg:text-[38px] font-black text-[#0A1E3F] tracking-tight leading-tight">
                 Why Choose MilkZo?
               </h2>
             </div>
 
-            <div className="space-y-4 sm:space-y-6 pt-1 sm:pt-2">
+            <div className="space-y-4 sm:space-y-5 pt-1 sm:pt-2">
               {points.map((pt, idx) => {
                 const IconComponent = pt.icon;
                 return (
                   <div key={idx} className="flex items-start gap-3.5 sm:gap-4 group">
-                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-[#0276FD]/50 bg-gradient-to-b from-blue-50/80 to-white flex items-center justify-center text-[#0276FD] shrink-0 group-hover:bg-[#0276FD] group-hover:text-white group-hover:border-[#0276FD] group-hover:scale-105 transition-all duration-300 shadow-2xs">
-                      <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.2} />
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#E5F1FC] flex items-center justify-center text-[#0276FD] shrink-0 group-hover:bg-[#0276FD] group-hover:text-white transition-all duration-300">
+                      <IconComponent className="w-5 h-5" strokeWidth={2} />
                     </div>
                     <div className="pt-0.5">
-                      <h3 className="text-sm sm:text-base font-bold text-[#0A1E3F] tracking-tight group-hover:text-[#0276FD] transition-colors">
+                      <h3 className="text-sm sm:text-base font-bold text-[#0A1E3F] tracking-tight">
                         {pt.title}
                       </h3>
                       <p className="text-xs sm:text-sm text-slate-500 mt-0.5 leading-relaxed">

@@ -6,7 +6,7 @@ interface HeroSectionProps {
   onExploreProducts?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick, onExploreProducts }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
   const heroBadges = [
     {
       icon: Leaf,
@@ -73,7 +73,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick, onExplor
               and deliver it to your homes.
             </p>
 
-            <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="pt-1">
               <button
                 onClick={onOrderClick}
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm sm:text-base font-bold rounded-full shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 hover:translate-x-0.5 active:scale-98 transition-all cursor-pointer"
@@ -81,31 +81,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick, onExplor
                 Order Fresh Milk
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              <button
-                onClick={() => {
-                  if (onExploreProducts) {
-                    onExploreProducts();
-                  } else {
-                    document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className="hidden sm:inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/90 hover:bg-white text-[#0A1E3F] hover:text-[#0276FD] text-sm font-bold rounded-full border border-slate-200/80 hover:border-blue-300 shadow-sm transition-all cursor-pointer hover:shadow-md"
-              >
-                Explore Products
-              </button>
             </div>
 
             {/* 4 Feature Badges */}
-            <div className="pt-2 sm:pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-2">
+            <div className="pt-2 sm:pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-3">
               {heroBadges.map((badge, idx) => {
                 const IconComponent = badge.icon;
                 return (
                   <div key={idx} className="flex flex-col items-center sm:items-start text-center sm:text-left group">
-                    <div className="w-11 h-11 rounded-full border-2 border-[#0276FD]/70 bg-white/90 backdrop-blur-xs flex items-center justify-center text-[#0276FD] shadow-xs group-hover:bg-[#0276FD] group-hover:text-white transition-colors duration-300">
-                      <IconComponent className="w-5 h-5" strokeWidth={2.2} />
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#D6EBFE] flex items-center justify-center text-[#0276FD] group-hover:bg-[#0276FD] group-hover:text-white transition-colors duration-300">
+                      <IconComponent className="w-5 h-5" strokeWidth={2} />
                     </div>
-                    <span className="mt-2 text-xs font-bold text-[#0A1E3F] leading-tight max-w-[95px]">
+                    <span className="mt-2.5 text-xs font-bold text-[#0A1E3F] leading-snug max-w-[100px]">
                       {badge.label}
                     </span>
                   </div>
@@ -114,35 +101,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick, onExplor
             </div>
           </div>
 
-          {/* Right Column: Displays the uncropped cows in background + Script Accent Badge + Desktop Live Trust Card */}
-          <div className="lg:col-span-7 relative h-52 sm:h-72 lg:h-full min-h-[360px] flex flex-col items-end justify-between pointer-events-none">
+          {/* Right Column: Displays the uncropped cows in background + Script Accent Badge */}
+          <div className="lg:col-span-7 relative h-52 sm:h-72 lg:h-full min-h-[360px] flex flex-col items-end justify-start pointer-events-none">
             {/* "Good Nutrition For A Brighter Tomorrow" Script Accent */}
-            <div className="pt-2 pr-2 sm:pt-4 sm:pr-4 text-right -rotate-6 transform select-none">
-              <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
+            <div className="pt-2 pr-2 sm:pt-4 sm:pr-4 text-right select-none">
+              <p className="text-[#0A1E3F] font-bold text-sm sm:text-base font-serif italic tracking-wide leading-tight drop-shadow-xs">
                 Good Nutrition
               </p>
-              <p className="text-[#0276FD] font-extrabold text-xs sm:text-sm italic leading-tight drop-shadow-xs">
+              <p className="text-[#0A1E3F] font-bold text-sm sm:text-base font-serif italic leading-tight drop-shadow-xs">
                 For A
               </p>
-              <p className="text-[#0A1E3F] font-bold text-xs sm:text-sm font-serif italic tracking-wide leading-tight drop-shadow-xs">
-                Brighter Tomorrow
+              <p className="text-[#0A1E3F] font-bold text-sm sm:text-base font-serif italic tracking-wide leading-tight drop-shadow-xs">
+                Brighter
               </p>
-            </div>
-
-            {/* Desktop-only floating trust badge positioned gracefully on right */}
-            <div className="hidden lg:flex pointer-events-auto items-center gap-3.5 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/80 shadow-lg shadow-blue-900/5 mb-4 mr-2 max-w-sm">
-              <div className="relative flex h-3 w-3 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
-              </div>
-              <div className="text-left">
-                <p className="text-xs font-extrabold text-[#0A1E3F]">
-                  Cold-Chained & Delivered by 7:00 AM
-                </p>
-                <p className="text-[11px] text-slate-500 font-medium">
-                  Direct from verified Indian farmer partners
-                </p>
-              </div>
+              <p className="text-[#0A1E3F] font-bold text-sm sm:text-base font-serif italic tracking-wide leading-tight drop-shadow-xs">
+                Tomorrow
+              </p>
             </div>
           </div>
         </div>
