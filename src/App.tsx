@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
+import { StatsBar } from './components/StatsBar';
 import { ProductsSection } from './components/ProductsSection';
 import { PromiseBanner } from './components/PromiseBanner';
 import { ProcessSection } from './components/ProcessSection';
@@ -149,6 +150,9 @@ export function App() {
       <main className="flex-1">
         {/* Hero Section */}
         <HeroSection onOrderClick={() => setOrderOpen(true)} />
+
+        {/* Floating Trust & Stats Bar */}
+        <StatsBar />
 
         {/* Products Grid Section */}
         <ProductsSection

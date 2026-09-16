@@ -20,24 +20,22 @@ export const PromiseBanner: React.FC = () => {
                 Wholesome dairy products, made with care, for a healthier and happier tomorrow. Supporting our hardworking rural dairy farmers.
               </p>
 
-              {/* Trust Checkmarks */}
-              <div className="pt-1 grid grid-cols-2 gap-2 text-xs font-bold text-slate-800">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
-                  <span>Grass-Fed Cattle</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
-                  <span>Zero Hormones</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
-                  <span>Chilled in 2 Hrs</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
-                  <span>Fair Farmer Pay</span>
-                </div>
+              {/* Trust Checkmarks Grid */}
+              <div className="pt-2 grid grid-cols-2 gap-2 sm:gap-2.5">
+                {[
+                  { label: 'Grass-Fed Cattle', desc: 'Natural pasture diet' },
+                  { label: 'Zero Hormones', desc: 'No oxytocin or BST' },
+                  { label: 'Chilled in 2 Hrs', desc: '4°C instant cooling' },
+                  { label: 'Fair Farmer Pay', desc: 'Direct bank transfer' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-2 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-white/70 shadow-2xs">
+                    <CheckCircle2 className="w-4 h-4 text-[#004bb5] shrink-0 mt-0.5" />
+                    <div>
+                      <span className="block text-xs font-bold text-[#0A1E3F] leading-tight">{item.label}</span>
+                      <span className="block text-[10px] text-slate-600 font-medium leading-tight mt-0.5">{item.desc}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 

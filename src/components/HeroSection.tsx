@@ -71,14 +71,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
               and deliver it to your homes.
             </p>
 
-            <div className="pt-1">
+            <div className="pt-1 flex flex-wrap items-center gap-4">
               <button
                 onClick={onOrderClick}
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm lg:text-base font-bold rounded-full shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 hover:translate-x-0.5 active:scale-98 transition-all cursor-pointer"
+                className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm lg:text-base font-bold rounded-full shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 active:scale-98 transition-all cursor-pointer overflow-hidden"
               >
-                Order Fresh Milk
-                <ArrowRight className="w-4 h-4" />
+                <span className="relative z-10 flex items-center gap-2">
+                  Order Fresh Milk
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
               </button>
+
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-xs border border-blue-100 text-xs font-bold text-slate-700 shadow-2xs">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>Next Delivery: Tomorrow by 7:00 AM</span>
+              </div>
             </div>
 
             {/* 4 Feature Badges */}
@@ -86,11 +97,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
               {heroBadges.map((badge, idx) => {
                 const IconComponent = badge.icon;
                 return (
-                  <div key={idx} className="flex flex-col items-start text-left group">
-                    <div className="w-11 h-11 xl:w-12 xl:h-12 rounded-full bg-white border border-blue-100 shadow-xs flex items-center justify-center text-[#0276FD] group-hover:bg-[#0276FD] group-hover:text-white transition-colors duration-300">
+                  <div key={idx} className="flex flex-col items-start text-left group cursor-default">
+                    <div className="w-11 h-11 xl:w-12 xl:h-12 rounded-2xl bg-white/90 backdrop-blur-xs border border-blue-100/90 shadow-2xs flex items-center justify-center text-[#0276FD] group-hover:bg-[#0276FD] group-hover:text-white group-hover:scale-105 group-hover:shadow-md group-hover:shadow-blue-500/20 transition-all duration-300">
                       <IconComponent className="w-5 h-5" strokeWidth={2} />
                     </div>
-                    <span className="mt-2 text-xs font-bold text-[#0A1E3F] leading-snug max-w-[95px]">
+                    <span className="mt-2 text-xs font-bold text-[#0A1E3F] leading-snug max-w-[95px] group-hover:text-[#0276FD] transition-colors">
                       {badge.label}
                     </span>
                   </div>
@@ -101,17 +112,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
 
           {/* Right Column: Displays Script Accent Badge in sky */}
           <div className="lg:col-span-6 xl:col-span-7 relative h-full flex flex-col items-end justify-start pointer-events-none">
-            {/* "Good Nutrition For A Brighter Tomorrow" Script Accent */}
-            <div className="pt-4 pr-6 text-right select-none drop-shadow-xs">
-              <p className="text-[#0A1E3F] font-bold text-sm lg:text-base font-serif italic tracking-wide leading-tight">
-                Good Nutrition
-              </p>
-              <p className="text-[#0276FD] font-extrabold text-sm lg:text-base italic leading-tight">
-                For A
-              </p>
-              <p className="text-[#0A1E3F] font-bold text-sm lg:text-base font-serif italic tracking-wide leading-tight">
-                Brighter Tomorrow
-              </p>
+            {/* "Good Nutrition For A Brighter Tomorrow" Script Accent Badge */}
+            <div className="pt-6 pr-6 select-none">
+              <div className="inline-block bg-white/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-lg shadow-blue-900/5 border border-white/90 -rotate-2 hover:rotate-0 transition-transform duration-300">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#0276FD]">Farm Pure Promise</span>
+                </div>
+                <p className="text-[#0A1E3F] font-bold text-sm lg:text-[15px] font-serif italic tracking-wide leading-tight">
+                  Good Nutrition
+                </p>
+                <p className="text-[#0276FD] font-black text-xs lg:text-sm italic leading-tight">
+                  For A Brighter Tomorrow
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -139,14 +153,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
               and deliver it to your homes.
             </p>
 
-            <div className="pt-1">
+            <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
                 onClick={onOrderClick}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm font-bold rounded-full shadow-md shadow-blue-500/25 active:scale-98 transition-all cursor-pointer"
+                className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#0276FD] hover:bg-[#0060d6] text-white text-sm font-bold rounded-full shadow-md shadow-blue-500/25 active:scale-98 transition-all cursor-pointer overflow-hidden"
               >
-                Order Fresh Milk
-                <ArrowRight className="w-4 h-4" />
+                <span className="relative z-10 flex items-center gap-2">
+                  Order Fresh Milk
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
               </button>
+
+              <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-xs border border-blue-100 text-[11px] font-bold text-slate-700 shadow-2xs">
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>Next Delivery: Tomorrow 7:00 AM</span>
+              </div>
             </div>
           </div>
 

@@ -224,9 +224,52 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
         </div>
 
+        {/* Trust Badges Strip */}
+        <div className="py-6 border-b border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-blue-400 shrink-0 text-[11px] font-black">
+              FSSAI
+            </div>
+            <div>
+              <span className="block text-[11px] font-bold text-slate-300 leading-tight">Govt. Certified</span>
+              <span className="block text-[10px] text-slate-500">100% Pure & Safe</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-blue-400 shrink-0 text-sm">
+              ❄️
+            </div>
+            <div>
+              <span className="block text-[11px] font-bold text-slate-300 leading-tight">4°C Cold Chain</span>
+              <span className="block text-[10px] text-slate-500">Continuous telemetry</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-emerald-400 shrink-0 text-sm">
+              ♻️
+            </div>
+            <div>
+              <span className="block text-[11px] font-bold text-slate-300 leading-tight">Eco-Friendly</span>
+              <span className="block text-[10px] text-slate-500">100% recyclable packs</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-slate-800/80 border border-slate-700/80 flex items-center justify-center text-amber-400 shrink-0 text-sm">
+              🌾
+            </div>
+            <div>
+              <span className="block text-[11px] font-bold text-slate-300 leading-tight">Direct from Farmers</span>
+              <span className="block text-[10px] text-slate-500">Zero middleman cuts</span>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
-          <p>© 2024 MilkZo. All rights reserved.</p>
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+          <p>© 2024 MilkZo Dairy Private Limited. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <a href="#privacy" className="hover:text-slate-300 transition-colors">
               Privacy Policy

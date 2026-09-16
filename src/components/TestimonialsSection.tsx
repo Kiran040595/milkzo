@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, CheckCircle2, Quote } from 'lucide-react';
 import { testimonials } from '../data/mockData';
 
 export const TestimonialsSection: React.FC = () => {
@@ -35,26 +35,39 @@ export const TestimonialsSection: React.FC = () => {
     <section className="py-10 sm:py-14 lg:py-16 xl:py-20 bg-gradient-to-b from-[#F9FBFC] to-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Navigation Controls */}
-        <div className="flex items-end justify-between mb-6 sm:mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-10 gap-4">
           <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/60 mb-2">
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-amber-400" />
+                ))}
+              </div>
+              <span className="text-[11px] font-extrabold text-amber-900">
+                4.9 / 5 from 2,500+ Reviews
+              </span>
+            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-[34px] xl:text-[38px] font-black text-[#0A1E3F] tracking-tight">
               What Our Customers Say
             </h2>
+            <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-lg">
+              Real reviews from families drinking fresh MilkZo dairy every morning.
+            </p>
           </div>
 
           {/* Carousel Arrows */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 self-end sm:self-auto">
             <button
               onClick={handlePrev}
               aria-label="Previous testimonial"
-              className="w-9 h-9 rounded-full border border-slate-300 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
+              className="w-10 h-10 rounded-full border border-slate-200 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Next testimonial"
-              className="w-9 h-9 rounded-full border border-slate-300 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
+              className="w-10 h-10 rounded-full border border-slate-200 hover:border-[#0276FD] bg-white hover:bg-blue-50 text-slate-600 hover:text-[#0276FD] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs active:scale-95"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -70,11 +83,14 @@ export const TestimonialsSection: React.FC = () => {
             return (
               <div
                 key={t.id}
-                className="min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center bg-white rounded-2xl p-6 sm:p-7 border border-slate-100 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+                className="min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center bg-white rounded-3xl p-6 sm:p-7 border border-slate-100/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_32px_rgba(2,118,253,0.08)] hover:border-blue-100 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group"
               >
-                <div>
+                {/* Translucent quote background */}
+                <Quote className="absolute -top-1 right-3 w-16 h-16 text-blue-50/70 rotate-12 pointer-events-none group-hover:text-blue-100/60 transition-colors" />
+
+                <div className="relative z-10">
                   {/* 5 Gold Stars */}
-                  <div className="flex items-center gap-1 mb-4 text-[#F59E0B]">
+                  <div className="flex items-center gap-1 mb-3.5 text-[#F59E0B]">
                     {[...Array(t.rating)].map((_, i) => (
                       <Star
                         key={i}
@@ -90,11 +106,11 @@ export const TestimonialsSection: React.FC = () => {
                 </div>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-3 pt-5 mt-5 border-t border-slate-100">
+                <div className="relative z-10 flex items-center gap-3 pt-5 mt-5 border-t border-slate-100">
                   <img
                     src={t.avatar}
                     alt={t.name}
-                    className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-blue-100"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
@@ -103,11 +119,16 @@ export const TestimonialsSection: React.FC = () => {
                     }}
                   />
                   <div className="min-w-0">
-                    <h4 className="text-sm font-bold text-[#0A1E3F] truncate">
-                      {t.name}
-                    </h4>
-                    <p className="text-xs text-slate-400 font-medium truncate">
-                      {t.city}
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="text-sm font-bold text-[#0A1E3F] truncate">
+                        {t.name}
+                      </h4>
+                      <span title="Verified Customer">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 font-medium truncate">
+                      {t.city} • <span className="text-emerald-600 font-semibold">Verified Daily Subscriber</span>
                     </p>
                   </div>
                 </div>

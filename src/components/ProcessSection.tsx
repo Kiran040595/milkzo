@@ -88,12 +88,18 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
                 onClick={onKnowMoreClick}
                 className="flex-1 flex flex-col items-center text-center group cursor-pointer"
               >
-                <div className="w-14 h-14 lg:w-15 lg:h-15 xl:w-18 xl:h-18 rounded-full border-2 border-[#0276FD] bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-all duration-300">
+                <div className="relative w-14 h-14 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-full border-2 border-blue-200 group-hover:border-[#0276FD] bg-white flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-blue-500/15 transition-all duration-300">
                   {getStepIcon(step.iconName)}
+                  <span className="absolute -top-1 -right-1 w-5 h-5 xl:w-6 xl:h-6 bg-[#0276FD] text-white text-[10px] xl:text-xs font-black rounded-full flex items-center justify-center shadow-xs">
+                    0{step.id}
+                  </span>
                 </div>
-                <h3 className="mt-3 text-xs lg:text-[13px] xl:text-sm font-bold text-[#0A1E3F] leading-snug max-w-[105px]">
+                <h3 className="mt-3 text-xs lg:text-[13px] xl:text-sm font-bold text-[#0A1E3F] leading-snug max-w-[110px] group-hover:text-[#0276FD] transition-colors">
                   {step.title}
                 </h3>
+                <p className="mt-1 text-[11px] text-slate-400 leading-tight max-w-[120px] hidden xl:block line-clamp-2">
+                  {step.subtitle}
+                </p>
               </div>
 
               {/* Arrow Divider */}
