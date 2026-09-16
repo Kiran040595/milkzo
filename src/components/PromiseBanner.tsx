@@ -1,4 +1,5 @@
 import React from 'react';
+import { CheckCircle2 } from 'lucide-react';
 
 export const PromiseBanner: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ export const PromiseBanner: React.FC = () => {
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#8ec7fb] via-[#a8d7fc] to-[#78befa] shadow-md border border-blue-200/50">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             {/* Left Content */}
-            <div className="p-6 sm:p-8 lg:p-10 xl:p-12 lg:col-span-5 z-10 space-y-2 sm:space-y-3">
+            <div className="p-6 sm:p-8 lg:p-10 xl:p-12 lg:col-span-5 z-10 space-y-3 sm:space-y-4">
               <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#004bb5] block">
                 THE MILKZO PROMISE
               </span>
@@ -16,8 +17,28 @@ export const PromiseBanner: React.FC = () => {
                 to Your Family
               </h2>
               <p className="text-xs sm:text-sm lg:text-[14px] xl:text-base text-slate-800 max-w-md leading-relaxed font-medium">
-                Wholesome dairy products, made with care, for a healthier and happier tomorrow.
+                Wholesome dairy products, made with care, for a healthier and happier tomorrow. Supporting our hardworking rural dairy farmers.
               </p>
+
+              {/* Trust Checkmarks */}
+              <div className="pt-1 grid grid-cols-2 gap-2 text-xs font-bold text-slate-800">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
+                  <span>Grass-Fed Cattle</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
+                  <span>Zero Hormones</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
+                  <span>Chilled in 2 Hrs</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#004bb5] shrink-0" />
+                  <span>Fair Farmer Pay</span>
+                </div>
+              </div>
             </div>
 
             {/* Right Banner Image with High-Res Farmer & Cattle (Uncropped) */}

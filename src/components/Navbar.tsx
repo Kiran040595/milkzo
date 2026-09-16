@@ -36,9 +36,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-slate-100/80 shadow-2xs transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+    <>
+      {/* Top Announcement Bar */}
+      <div className="bg-gradient-to-r from-[#0276FD] via-[#005ecf] to-[#014ca6] text-white text-[11px] sm:text-xs py-1.5 px-4 text-center font-semibold tracking-tight flex items-center justify-center gap-2 shadow-inner">
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+        <span>Fresh Morning Farm Milk Delivered by 7:00 AM Daily</span>
+        <span className="hidden sm:inline text-blue-200">•</span>
+        <span className="hidden sm:inline text-white/90">Direct from Indian Grassroots Farmers</span>
+        <span className="hidden md:inline bg-white/20 hover:bg-white/30 transition-colors px-2 py-0.5 rounded-full text-[10px] font-bold ml-1 cursor-pointer" onClick={onOpenOrder}>
+          Use Code: FRESH20
+        </span>
+      </div>
+
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-slate-100/80 shadow-2xs transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <a
             href="#home"
@@ -166,5 +178,6 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       )}
     </header>
-  );
+  </>
+);
 };

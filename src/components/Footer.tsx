@@ -26,9 +26,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 pb-12 sm:pb-14 border-b border-slate-800/80">
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-8 pb-12 sm:pb-14 border-b border-slate-800/80">
           {/* Column 1: Brand & Logo */}
-          <div className="lg:col-span-3 space-y-4">
+          <div className="col-span-2 lg:col-span-3 space-y-4">
             <div className="flex items-center gap-2">
               <img
                 src="/images/footer-logo.png"
@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div className="lg:col-span-2 space-y-3.5">
+          <div className="col-span-1 lg:col-span-2 space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-200">
               Quick Links
             </h4>
@@ -91,7 +91,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           {/* Column 3: Our Products */}
-          <div className="lg:col-span-2 space-y-3.5">
+          <div className="col-span-1 lg:col-span-2 space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-200">
               Our Products
             </h4>
@@ -140,7 +140,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           {/* Column 4: Follow Us */}
-          <div className="lg:col-span-2 space-y-3.5">
+          <div className="col-span-2 sm:col-span-1 lg:col-span-2 space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-200">
               Follow Us
             </h4>
@@ -185,7 +185,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           {/* Column 5: Stay Updated */}
-          <div className="lg:col-span-3 space-y-3.5">
+          <div className="col-span-2 lg:col-span-3 space-y-3.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-200">
               Stay Updated
             </h4>

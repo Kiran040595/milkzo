@@ -107,19 +107,25 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onKnowMoreClick 
         </div>
 
         {/* Mobile & Tablet View (< lg) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6 lg:hidden">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:hidden">
           {processSteps.map((step) => (
             <div
               key={step.id}
               onClick={onKnowMoreClick}
-              className="flex flex-col items-center text-center group cursor-pointer p-3 rounded-2xl bg-white sm:bg-transparent border border-slate-100 sm:border-transparent hover:bg-blue-50/40 transition-colors shadow-2xs sm:shadow-none"
+              className="flex flex-col items-center text-center group cursor-pointer p-3.5 rounded-2xl bg-white border border-slate-100/90 hover:border-blue-200 hover:bg-blue-50/30 transition-all shadow-2xs"
             >
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#0276FD] bg-white flex items-center justify-center shadow-xs">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#0276FD] bg-white flex items-center justify-center shadow-xs">
                 {getStepIcon(step.iconName)}
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#0276FD] text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-xs">
+                  0{step.id}
+                </span>
               </div>
-              <h3 className="mt-2 text-xs sm:text-sm font-bold text-[#0A1E3F] leading-tight max-w-[100px]">
+              <h3 className="mt-2.5 text-xs sm:text-sm font-bold text-[#0A1E3F] leading-tight">
                 {step.title}
               </h3>
+              <p className="mt-1 text-[11px] text-slate-400 leading-tight">
+                {step.subtitle}
+              </p>
             </div>
           ))}
         </div>
