@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle, MapPin, Clock, Phone, User } from 'lucide-react';
+import { X, CheckCircle, MapPin, Clock, Phone, User, Sparkles, Gift } from 'lucide-react';
 import type { CartItem } from '../types';
+import type { TrialOrderData } from './TrailsPackSection';
 
 interface OrderModalProps {
   isOpen: boolean;
   onClose: () => void;
   cartItems: CartItem[];
   onOrderSuccess: () => void;
+  trialOrder?: TrialOrderData | null;
 }
 
 export const OrderModal: React.FC<OrderModalProps> = ({
@@ -14,6 +16,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
   onClose,
   cartItems,
   onOrderSuccess,
+  trialOrder,
 }) => {
   if (!isOpen) return null;
 
@@ -22,6 +25,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       onClose={onClose}
       cartItems={cartItems}
       onOrderSuccess={onOrderSuccess}
+      trialOrder={trialOrder}
     />
   );
 };
@@ -30,7 +34,8 @@ const OrderModalContent: React.FC<{
   onClose: () => void;
   cartItems: CartItem[];
   onOrderSuccess: () => void;
-}> = ({ onClose, cartItems, onOrderSuccess }) => {
+  trialOrder?: TrialOrderData | null;
+}> = ({ onClose, cartItems, onOrderSuccess, trialOrder }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -63,7 +68,9 @@ const OrderModalContent: React.FC<{
     onOrderSuccess();
   };
 
-  const totalAmount = cartItems.length > 0
+  const totalAmount = trialOrder
+    ? trialOrder.price
+    : cartItems.length > 0
     ? cartItems.reduce((s, i) => s + i.selectedOption.price * i.quantity, 0)
     : 76; // Default to 2 packets of milk if opened directly via Order Now
 
@@ -81,11 +88,17 @@ const OrderModalContent: React.FC<{
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base sm:text-xl font-extrabold">
-                {submitted ? 'Order Confirmed!' : 'Doorstep Fresh Delivery'}
+                {submitted
+                  ? 'Order Confirmed!'
+                  : trialOrder
+                  ? `${trialOrder.planDays}-Day Trial Subscription`
+                  : 'Doorstep Fresh Delivery'}
               </h2>
               <p className="text-[11px] sm:text-xs text-blue-200">
                 {submitted
                   ? 'Your morning freshness is scheduled!'
+                  : trialOrder
+                  ? `Delivering ${trialOrder.quantityPerDay} daily starting from ${trialOrder.startDate}`
                   : '100% pure dairy from Indian farmers delivered by 7 AM'}
               </p>
             </div>
@@ -122,15 +135,31 @@ const OrderModalContent: React.FC<{
 
             {/* Delivery Card */}
             <div className="bg-blue-50/70 p-4 rounded-2xl border border-blue-100 text-left space-y-2 text-xs">
+              {trialOrder && (
+                <div className="flex justify-between text-slate-700 pb-2 border-b border-blue-200/50 font-bold">
+                  <span className="text-[#0276FD]">Subscription:</span>
+                  <span className="text-[#0A1E3F]">
+                    {trialOrder.planDays}-Day Trial ({trialOrder.milkTypeName})
+                  </span>
+                </div>
+              )}
               <div className="flex justify-between text-slate-700">
-                <span className="font-semibold text-slate-500">Delivery Slot:</span>
+                <span className="font-semibold text-slate-500">Delivery Starting:</span>
                 <span className="font-bold text-[#0A1E3F]">
-                  {formData.slot === 'early' ? 'Tomorrow 5:30 AM - 7:00 AM' : 'Tomorrow 7:00 AM - 8:30 AM'}
+                  {trialOrder ? trialOrder.startDate : 'Tomorrow'} (5:30 AM - 7:00 AM)
                 </span>
               </div>
+              {trialOrder?.bonusItem && (
+                <div className="flex justify-between text-slate-700 font-bold text-pink-600">
+                  <span>Bonus Gift:</span>
+                  <span>{trialOrder.bonusItem}</span>
+                </div>
+              )}
               <div className="flex justify-between text-slate-700">
-                <span className="font-semibold text-slate-500">Frequency:</span>
-                <span className="font-bold capitalize text-[#0276FD]">{formData.plan} Morning Delivery</span>
+                <span className="font-semibold text-slate-500">Schedule:</span>
+                <span className="font-bold capitalize text-[#0276FD]">
+                  {trialOrder ? `${trialOrder.planDays} Consecutive Mornings` : `${formData.plan} Morning Delivery`}
+                </span>
               </div>
               <div className="flex justify-between text-slate-700">
                 <span className="font-semibold text-slate-500">Payment:</span>
@@ -148,6 +177,39 @@ const OrderModalContent: React.FC<{
         ) : (
           /* Order Form View */
           <form onSubmit={handleSubmit} className="overflow-y-auto p-4 sm:p-6 space-y-4 text-xs">
+            {/* Trial Pack Details Pill if active */}
+            {trialOrder && (
+              <div className="p-3.5 bg-gradient-to-r from-blue-50 to-amber-50 rounded-2xl border border-blue-200/80 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase text-[#0276FD] flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    <span>{trialOrder.planDays}-Day Trial Pack</span>
+                  </span>
+                  <span className="text-xs font-black text-[#0A1E3F]">
+                    ₹{trialOrder.price}{' '}
+                    <span className="text-[10px] text-slate-400 line-through">
+                      ₹{trialOrder.originalPrice}
+                    </span>
+                  </span>
+                </div>
+                <div className="text-xs text-slate-700 font-semibold">
+                  {trialOrder.milkTypeName} • {trialOrder.quantityPerDay} / day
+                </div>
+                <div className="text-[11px] text-slate-500 flex items-center gap-1">
+                  <Clock className="w-3 h-3 text-[#0276FD]" />
+                  <span>
+                    Delivering daily from <strong>{trialOrder.startDate}</strong> to{' '}
+                    <strong>{trialOrder.endDate}</strong>
+                  </span>
+                </div>
+                {trialOrder.bonusItem && (
+                  <div className="text-[11px] font-bold text-pink-600 flex items-center gap-1 pt-0.5">
+                    <Gift className="w-3 h-3" />
+                    <span>Includes: {trialOrder.bonusItem}</span>
+                  </div>
+                )}
+              </div>
+            )}
             {/* Delivery Frequency Selection */}
             <div>
               <label className="font-bold text-slate-700 uppercase tracking-wider block mb-1.5">

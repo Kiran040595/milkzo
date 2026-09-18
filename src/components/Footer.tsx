@@ -65,6 +65,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <button
+                  onClick={() => onNavigate('trails-pack')}
+                  className="py-1 hover:text-white hover:translate-x-0.5 transition-all cursor-pointer flex items-center gap-1.5 text-amber-300"
+                >
+                  <span>Trails Pack</span>
+                  <span className="text-[10px] font-black uppercase tracking-tight bg-amber-400/20 text-amber-300 px-1.5 py-0.2 rounded-full border border-amber-400/30">
+                    New
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => onNavigate('process')}
                   className="py-1 hover:text-white hover:translate-x-0.5 transition-all cursor-pointer"
                 >

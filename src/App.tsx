@@ -6,6 +6,7 @@ import { ProductsSection } from './components/ProductsSection';
 import { PromiseBanner } from './components/PromiseBanner';
 import { ProcessSection } from './components/ProcessSection';
 import { WhyChooseSection } from './components/WhyChooseSection';
+import { MilkComparisonSlider } from './components/MilkComparisonSlider';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { AppDownloadSection } from './components/AppDownloadSection';
 import { Footer } from './components/Footer';
@@ -15,6 +16,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { OrderModal } from './components/OrderModal';
 import { SearchModal } from './components/SearchModal';
 import { ProcessModal } from './components/ProcessModal';
+import { TrailsPackSection, type TrialOrderData } from './components/TrailsPackSection';
 import { products } from './data/mockData';
 import type { Product, CartItem } from './types';
 
@@ -28,6 +30,7 @@ export function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [processModalOpen, setProcessModalOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [selectedTrialOrder, setSelectedTrialOrder] = useState<TrialOrderData | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Auto hide toast after 3s
@@ -41,7 +44,7 @@ export function App() {
   // Handle active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'products', 'process', 'about', 'contact'];
+      const sections = ['home', 'products', 'trails-pack', 'process', 'about', 'contact'];
       const scrollPosition = window.scrollY + 150;
 
       for (const section of sections) {
@@ -120,6 +123,12 @@ export function App() {
     }
   };
 
+  const handleBookTrial = (trialData: TrialOrderData) => {
+    setSelectedTrialOrder(trialData);
+    setOrderOpen(true);
+    showToast(`Configured ${trialData.planDays}-Day ${trialData.milkTypeName} Trial!`);
+  };
+
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalCartPrice = cartItems.reduce(
     (acc, item) => acc + item.selectedOption.price * item.quantity,
@@ -140,7 +149,10 @@ export function App() {
       <Navbar
         cartCount={totalCartCount}
         onOpenCart={() => setCartOpen(true)}
-        onOpenOrder={() => setOrderOpen(true)}
+        onOpenOrder={() => {
+          setSelectedTrialOrder(null);
+          setOrderOpen(true);
+        }}
         onOpenSearch={() => setSearchOpen(true)}
         activeSection={activeSection}
         onNavigate={handleNavigate}
@@ -149,7 +161,10 @@ export function App() {
       {/* Main Page Sections */}
       <main className="flex-1">
         {/* Hero Section */}
-        <HeroSection onOrderClick={() => setOrderOpen(true)} />
+        <HeroSection onOrderClick={() => {
+          setSelectedTrialOrder(null);
+          setOrderOpen(true);
+        }} />
 
         {/* Floating Trust & Stats Bar */}
         <StatsBar />
@@ -164,11 +179,20 @@ export function App() {
         {/* The MilkZo Promise Banner */}
         <PromiseBanner />
 
+        {/* Exclusive MilkZo Trails Pack Section */}
+        <TrailsPackSection onBookTrial={handleBookTrial} />
+
         {/* Our Process Section */}
         <ProcessSection onKnowMoreClick={() => setProcessModalOpen(true)} />
 
         {/* Why Choose MilkZo Section */}
-        <WhyChooseSection onOrderClick={() => setOrderOpen(true)} />
+        <WhyChooseSection onOrderClick={() => {
+          setSelectedTrialOrder(null);
+          setOrderOpen(true);
+        }} />
+
+        {/* Interactive Before/After Purity Comparison Slider */}
+        <MilkComparisonSlider />
 
         {/* Customer Testimonials Section */}
         <TestimonialsSection />
@@ -187,7 +211,10 @@ export function App() {
         activeSection={activeSection}
         onNavigate={handleNavigate}
         onOpenCart={() => setCartOpen(true)}
-        onOpenOrder={() => setOrderOpen(true)}
+        onOpenOrder={() => {
+          setSelectedTrialOrder(null);
+          setOrderOpen(true);
+        }}
         onOpenSearch={() => setSearchOpen(true)}
       />
 
@@ -205,16 +232,24 @@ export function App() {
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
-        onCheckout={() => setOrderOpen(true)}
+        onCheckout={() => {
+          setSelectedTrialOrder(null);
+          setOrderOpen(true);
+        }}
       />
 
       {/* Checkout / Fast Order Modal */}
       <OrderModal
         isOpen={orderOpen}
-        onClose={() => setOrderOpen(false)}
+        onClose={() => {
+          setOrderOpen(false);
+          setSelectedTrialOrder(null);
+        }}
         cartItems={cartItems}
+        trialOrder={selectedTrialOrder}
         onOrderSuccess={() => {
           setCartItems([]);
+          setSelectedTrialOrder(null);
           showToast('Order scheduled! Delivery will arrive by 7:00 AM.');
         }}
       />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Grid, Search, ShoppingBag, Zap, ChevronRight } from 'lucide-react';
+import { Home, Grid, KeyRound, ShoppingBag, Zap, ChevronRight } from 'lucide-react';
 
 interface MobileBottomNavProps {
   cartCount: number;
@@ -18,7 +18,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   onNavigate,
   onOpenCart,
   onOpenOrder,
-  onOpenSearch,
+  onOpenSearch: _onOpenSearch,
 }) => {
   return (
     <div className="md:hidden fixed bottom-0 inset-x-0 z-40 pointer-events-none">
@@ -60,7 +60,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           {/* Home Tab */}
           <button
             onClick={() => onNavigate('home')}
-            className={`flex flex-col items-center justify-center py-1 px-3 min-w-[56px] min-h-[44px] rounded-xl transition-colors cursor-pointer ${
+            className={`flex flex-col items-center justify-center py-1 px-2.5 min-w-[54px] min-h-[44px] rounded-xl transition-colors cursor-pointer ${
               activeSection === 'home'
                 ? 'text-[#0276FD]'
                 : 'text-slate-500 hover:text-slate-800'
@@ -73,7 +73,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           {/* Products Tab */}
           <button
             onClick={() => onNavigate('products')}
-            className={`flex flex-col items-center justify-center py-1 px-3 min-w-[56px] min-h-[44px] rounded-xl transition-colors cursor-pointer ${
+            className={`flex flex-col items-center justify-center py-1 px-2.5 min-w-[54px] min-h-[44px] rounded-xl transition-colors cursor-pointer ${
               activeSection === 'products'
                 ? 'text-[#0276FD]'
                 : 'text-slate-500 hover:text-slate-800'
@@ -83,13 +83,20 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             <span className="text-[10px] font-bold mt-0.5">Products</span>
           </button>
 
-          {/* Search Tab */}
+          {/* Trails Pack Tab */}
           <button
-            onClick={onOpenSearch}
-            className="flex flex-col items-center justify-center py-1 px-3 min-w-[56px] min-h-[44px] rounded-xl text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+            onClick={() => onNavigate('trails-pack')}
+            className={`relative flex flex-col items-center justify-center py-1 px-2.5 min-w-[54px] min-h-[44px] rounded-xl transition-colors cursor-pointer ${
+              activeSection === 'trails-pack'
+                ? 'text-[#0276FD]'
+                : 'text-slate-500 hover:text-slate-800'
+            }`}
           >
-            <Search className="w-5 h-5" strokeWidth={2} />
-            <span className="text-[10px] font-bold mt-0.5">Search</span>
+            <div className="relative">
+              <KeyRound className="w-5 h-5" strokeWidth={activeSection === 'trails-pack' ? 2.5 : 2} />
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400" />
+            </div>
+            <span className="text-[10px] font-bold mt-0.5">Trials</span>
           </button>
 
           {/* Cart Tab */}

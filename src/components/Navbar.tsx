@@ -25,6 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'products', label: 'Products' },
+    { id: 'trails-pack', label: 'Trails Pack', isSpecial: true },
     { id: 'process', label: 'Our Process' },
     { id: 'about', label: 'About' },
     { id: 'contact', label: 'Contact' },
@@ -69,20 +70,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-11">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-9">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleLinkClick(item.id)}
-                  className={`relative text-[15px] font-semibold tracking-tight transition-all duration-200 cursor-pointer py-1.5 ${
+                  className={`relative text-[15px] font-semibold tracking-tight transition-all duration-200 cursor-pointer py-1.5 flex items-center gap-1.5 ${
                     isActive
                       ? 'text-[#0276FD]'
                       : 'text-slate-600 hover:text-[#0A1E3F]'
                   }`}
                 >
-                  {item.label}
+                  <span>{item.label}</span>
+                  {item.isSpecial && (
+                    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-tight bg-amber-400/20 text-amber-800 rounded-full border border-amber-300/60 shadow-2xs">
+                      Unlock
+                    </span>
+                  )}
                   {isActive && (
                     <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#0276FD] rounded-full shadow-xs shadow-blue-500/30 transition-all duration-300" />
                   )}
@@ -154,13 +160,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={item.id}
                 onClick={() => handleLinkClick(item.id)}
-                className={`text-left px-3.5 py-2.5 text-base font-semibold rounded-xl transition-all ${
+                className={`text-left px-3.5 py-2.5 text-base font-semibold rounded-xl transition-all flex items-center justify-between ${
                   activeSection === item.id
                     ? 'bg-blue-50 text-[#0276FD]'
                     : 'text-slate-700 hover:bg-slate-50'
                 }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {item.isSpecial && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-black bg-amber-100 text-amber-800 rounded-full border border-amber-200">
+                    🔑 Unlock Deals
+                  </span>
+                )}
               </button>
             ))}
           </nav>
