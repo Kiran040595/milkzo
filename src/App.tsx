@@ -16,14 +16,23 @@ import { CartDrawer } from './components/CartDrawer';
 import { OrderModal } from './components/OrderModal';
 import { SearchModal } from './components/SearchModal';
 import { ProcessModal } from './components/ProcessModal';
-import { TrailsPackSection, type TrialOrderData } from './components/TrailsPackSection';
+import { TrailsPackPage } from './pages/TrailsPackPage';
+import type { TrialOrderData } from './components/TrailsPackSection';
 import { products } from './data/mockData';
 import type { Product, CartItem } from './types';
 
 import { CheckCircle2 } from 'lucide-react';
 
 export function App() {
-  const [activeSection, setActiveSection] = useState('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'trails-pack'>(() => {
+    if (typeof window !== 'undefined' && window.location.hash === '#trails-pack') {
+      return 'trails-pack';
+    }
+    return 'home';
+  });
+  const [activeSection, setActiveSection] = useState(() => (
+    typeof window !== 'undefined' && window.location.hash === '#trails-pack' ? 'trails-pack' : 'home'
+  ));
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
   const [orderOpen, setOrderOpen] = useState(false);
@@ -33,6 +42,21 @@ export function App() {
   const [selectedTrialOrder, setSelectedTrialOrder] = useState<TrialOrderData | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Sync with URL hash
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#trails-pack') {
+        setCurrentPage('trails-pack');
+        setActiveSection('trails-pack');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setCurrentPage('home');
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   // Auto hide toast after 3s
   useEffect(() => {
     if (toastMessage) {
@@ -41,10 +65,12 @@ export function App() {
     }
   }, [toastMessage]);
 
-  // Handle active section on scroll
+  // Handle active section on scroll (only on home page)
   useEffect(() => {
+    if (currentPage !== 'home') return;
+
     const handleScroll = () => {
-      const sections = ['home', 'products', 'trails-pack', 'process', 'about', 'contact'];
+      const sections = ['home', 'products', 'process', 'about', 'contact'];
       const scrollPosition = window.scrollY + 150;
 
       for (const section of sections) {
@@ -62,7 +88,7 @@ export function App() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [currentPage]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -116,6 +142,29 @@ export function App() {
   };
 
   const handleNavigate = (sectionId: string) => {
+    if (sectionId === 'trails-pack') {
+      setCurrentPage('trails-pack');
+      setActiveSection('trails-pack');
+      window.location.hash = 'trails-pack';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (currentPage !== 'home') {
+      setCurrentPage('home');
+      window.location.hash = sectionId === 'home' ? '' : sectionId;
+      setTimeout(() => {
+        setActiveSection(sectionId);
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 50);
+      return;
+    }
+
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
@@ -158,48 +207,54 @@ export function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* Main Page Sections */}
-      <main className="flex-1">
-        {/* Hero Section */}
-        <HeroSection onOrderClick={() => {
-          setSelectedTrialOrder(null);
-          setOrderOpen(true);
-        }} />
+      {/* Main Page Content: Separate Trails Pack Page vs Home Page */}
+      {currentPage === 'trails-pack' ? (
+        <main className="flex-1">
+          <TrailsPackPage
+            onBackToHome={() => handleNavigate('home')}
+            onBookTrial={handleBookTrial}
+          />
+        </main>
+      ) : (
+        <main className="flex-1">
+          {/* Hero Section */}
+          <HeroSection onOrderClick={() => {
+            setSelectedTrialOrder(null);
+            setOrderOpen(true);
+          }} />
 
-        {/* Floating Trust & Stats Bar */}
-        <StatsBar />
+          {/* Floating Trust & Stats Bar */}
+          <StatsBar />
 
-        {/* Products Grid Section */}
-        <ProductsSection
-          products={products}
-          onSelectProduct={(p) => setSelectedProduct(p)}
-          onAddToCart={handleQuickAdd}
-        />
+          {/* Products Grid Section */}
+          <ProductsSection
+            products={products}
+            onSelectProduct={(p) => setSelectedProduct(p)}
+            onAddToCart={handleQuickAdd}
+          />
 
-        {/* The MilkZo Promise Banner */}
-        <PromiseBanner />
+          {/* The MilkZo Promise Banner */}
+          <PromiseBanner />
 
-        {/* Exclusive MilkZo Trails Pack Section */}
-        <TrailsPackSection onBookTrial={handleBookTrial} />
+          {/* Our Process Section */}
+          <ProcessSection onKnowMoreClick={() => setProcessModalOpen(true)} />
 
-        {/* Our Process Section */}
-        <ProcessSection onKnowMoreClick={() => setProcessModalOpen(true)} />
+          {/* Why Choose MilkZo Section */}
+          <WhyChooseSection onOrderClick={() => {
+            setSelectedTrialOrder(null);
+            setOrderOpen(true);
+          }} />
 
-        {/* Why Choose MilkZo Section */}
-        <WhyChooseSection onOrderClick={() => {
-          setSelectedTrialOrder(null);
-          setOrderOpen(true);
-        }} />
+          {/* Interactive Before/After Purity Comparison Slider */}
+          <MilkComparisonSlider />
 
-        {/* Interactive Before/After Purity Comparison Slider */}
-        <MilkComparisonSlider />
+          {/* Customer Testimonials Section */}
+          <TestimonialsSection />
 
-        {/* Customer Testimonials Section */}
-        <TestimonialsSection />
-
-        {/* App Download Section */}
-        <AppDownloadSection />
-      </main>
+          {/* App Download Section */}
+          <AppDownloadSection />
+        </main>
+      )}
 
       {/* Footer */}
       <Footer onNavigate={handleNavigate} />
