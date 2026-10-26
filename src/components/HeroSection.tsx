@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Leaf, ShieldCheck, Droplets, Home } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface HeroSectionProps {
   onOrderClick: () => void;
@@ -7,24 +7,6 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
-  const heroBadges = [
-    {
-      icon: Leaf,
-      label: '100% Pure & Natural',
-    },
-    {
-      icon: ShieldCheck,
-      label: 'Rich in Nutrition',
-    },
-    {
-      icon: Droplets,
-      label: 'No Added Preservatives',
-    },
-    {
-      icon: Home,
-      label: 'From Trusted Farms',
-    },
-  ];
 
   return (
     <section
@@ -90,23 +72,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
                 </span>
                 <span>Next Delivery: Tomorrow by 7:00 AM</span>
               </div>
-            </div>
-
-            {/* 4 Feature Badges */}
-            <div className="pt-4 grid grid-cols-4 gap-3">
-              {heroBadges.map((badge, idx) => {
-                const IconComponent = badge.icon;
-                return (
-                  <div key={idx} className="flex flex-col items-start text-left group cursor-default">
-                    <div className="w-11 h-11 xl:w-12 xl:h-12 rounded-2xl bg-white/90 backdrop-blur-xs border border-blue-100/90 shadow-2xs flex items-center justify-center text-[#0276FD] group-hover:bg-[#0276FD] group-hover:text-white group-hover:scale-105 group-hover:shadow-md group-hover:shadow-blue-500/20 transition-all duration-300">
-                      <IconComponent className="w-5 h-5" strokeWidth={2} />
-                    </div>
-                    <span className="mt-2 text-xs font-bold text-[#0A1E3F] leading-snug max-w-[95px] group-hover:text-[#0276FD] transition-colors">
-                      {badge.label}
-                    </span>
-                  </div>
-                );
-              })}
             </div>
           </div>
 
@@ -199,26 +164,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOrderClick }) => {
                 </p>
               </div>
             </div>
-          </div>
-
-          {/* 4 Feature Badges Grid on Mobile (2x2) */}
-          <div className="grid grid-cols-2 gap-2.5 pt-1">
-            {heroBadges.map((badge, idx) => {
-              const IconComponent = badge.icon;
-              return (
-                <div
-                  key={idx}
-                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/90 backdrop-blur-xs border border-blue-100/70 shadow-2xs"
-                >
-                  <div className="w-9 h-9 rounded-full bg-blue-50 text-[#0276FD] flex items-center justify-center shrink-0">
-                    <IconComponent className="w-4 h-4" strokeWidth={2.2} />
-                  </div>
-                  <span className="text-xs font-bold text-[#0A1E3F] leading-snug">
-                    {badge.label}
-                  </span>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
